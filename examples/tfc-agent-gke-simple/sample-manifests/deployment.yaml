@@ -1,0 +1,53 @@
+# Copyright (c) HashiCorp, Inc.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tfc-agent-deployment
+spec:
+  selector:
+    matchLabels:
+      app: tfc-agent
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tfc-agent
+    spec:
+      containers:
+        - name: tfc-agent
+          image: gcr.io/PROJECT_ID/tfc-agent:latest
+          imagePullPolicy: Always
+          env:
+            - name: TFC_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: tfc-agent-k8s-secrets
+                  key: tfc_agent_address
+            - name: TFC_AGENT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: tfc-agent-k8s-secrets
+                  key: tfc_agent_token
+            - name: TFC_AGENT_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: tfc-agent-k8s-secrets
+                  key: tfc_agent_name
+            - name: TFC_AGENT_SINGLE
+              valueFrom:
+                secretKeyRef:
+                  name: tfc-agent-k8s-secrets
+                  key: tfc_agent_single
+            - name: TFC_AGENT_AUTO_UPDATE
+              valueFrom:
+                secretKeyRef:
+                  name: tfc-agent-k8s-secrets
+                  key: tfc_agent_auto_update
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
