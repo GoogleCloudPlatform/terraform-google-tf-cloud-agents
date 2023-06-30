@@ -1,5 +1,0 @@
-.terraform
-*.tfstate
-*.tf
-*.out
-sample-manifests
