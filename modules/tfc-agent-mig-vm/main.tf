@@ -16,7 +16,6 @@
 
 locals {
   network_name    = var.create_network ? google_compute_network.tfc_agent_network[0].self_link : var.network_name
-  subnet_name     = var.create_subnetwork ? google_compute_subnetwork.tfc_agent_subnetwork[0].self_link : var.subnet_name
   service_account = var.service_account == "" ? google_service_account.tfc_agent_service_account[0].email : var.service_account
   startup_script  = var.startup_script == "" ? file("${path.module}/scripts/startup.sh") : var.startup_script
   instance_name   = "${var.tfc_agent_name_prefix}-${random_string.suffix.result}"
@@ -29,7 +28,7 @@ resource "random_string" "suffix" {
 }
 
 /*****************************************
-  Optional Terraform Agent Networking
+  Optional Terraform agent Networking
  *****************************************/
 
 resource "google_compute_network" "tfc_agent_network" {
@@ -40,7 +39,7 @@ resource "google_compute_network" "tfc_agent_network" {
 }
 
 resource "google_compute_subnetwork" "tfc_agent_subnetwork" {
-  count         = var.create_subnetwork ? 1 : 0
+  count         = var.create_network ? 1 : 0
   project       = var.project_id
   name          = var.subnet_name
   ip_cidr_range = var.subnet_ip
@@ -74,11 +73,11 @@ resource "google_service_account" "tfc_agent_service_account" {
   count        = var.service_account == "" ? 1 : 0
   project      = var.project_id
   account_id   = "tfc-agent-mig-vm-sa"
-  display_name = "Terraform Cloud Agent GCE Service Account"
+  display_name = "Terraform Cloud agent GCE Service Account"
 }
 
 /*****************************************
-  Terraform Agent Secrets
+  Terraform agent Secrets
  *****************************************/
 
 resource "google_secret_manager_secret" "tfc_agent_secret" {
@@ -122,7 +121,7 @@ resource "google_secret_manager_secret_iam_member" "tfc_agent_secret_member" {
 }
 
 /*****************************************
-  Terraform Agent GCE Instance Template
+  Terraform agent GCE Instance Template
  *****************************************/
 
 module "mig_template" {
@@ -131,7 +130,7 @@ module "mig_template" {
   project_id         = var.project_id
   machine_type       = var.machine_type
   network            = local.network_name
-  subnetwork         = local.subnet_name
+  subnetwork         = var.subnet_name
   region             = var.region
   subnetwork_project = var.subnetwork_project != "" ? var.subnetwork_project : var.project_id
   service_account = {
@@ -157,7 +156,7 @@ module "mig_template" {
 }
 
 /*****************************************
-  Terraform Agent MIG
+  Terraform agent MIG
  *****************************************/
 
 module "mig" {

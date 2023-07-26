@@ -1,18 +1,4 @@
-/**
- * Copyright 2023 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+# Copyright (c) HashiCorp, Inc.
 
 data "google_client_config" "default" {
 }
@@ -46,7 +32,20 @@ resource "tfe_agent_pool" "tfc_agent_pool" {
 # Create a new token for the agent pool
 resource "tfe_agent_token" "tfc_agent_token" {
   agent_pool_id = tfe_agent_pool.tfc_agent_pool.id
-  description   = var.tfc_agent_pool_token_description_description
+  description   = var.tfc_agent_pool_token_description
+}
+
+# Allow GKE to pull images from Google Artifact Registry
+resource "google_project_iam_member" "gar_viewer" {
+  project = var.project_id
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${module.tfc_agent_gke.service_account}"
+}
+
+resource "google_project_iam_member" "gar_reader" {
+  project = var.project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${module.tfc_agent_gke.service_account}"
 }
 
 # Create the infrastructure for the agent to run
@@ -54,5 +53,6 @@ module "tfc_agent_gke" {
   source          = "../../modules/tfc-agent-gke"
   create_network  = true
   project_id      = var.project_id
+  tfc_agent_image = var.tfc_agent_image
   tfc_agent_token = tfe_agent_token.tfc_agent_token.token
 }

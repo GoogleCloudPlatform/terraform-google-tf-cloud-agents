@@ -38,7 +38,7 @@ resource "tfe_agent_pool" "tfc_agent_pool" {
 
 resource "tfe_agent_token" "tfc_agent_token" {
   agent_pool_id = tfe_agent_pool.tfc_agent_pool.id
-  description   = var.tfc_agent_pool_token
+  description   = var.tfc_agent_pool_token_description
 }
 
 module "tfc_agent_mig" {
