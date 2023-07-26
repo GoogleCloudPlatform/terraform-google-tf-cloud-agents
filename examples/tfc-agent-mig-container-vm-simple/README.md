@@ -50,4 +50,4 @@ It creates the Terraform Cloud agent pool, registers the agent to that pool and 
 | mig\_name | The name of the MIG |
 | service\_account | Service account email used with the MIG template |
 
- <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -63,7 +63,7 @@ This example shows how to deploy a custom Terraform Cloud agent image with GKE.
 | service\_account | The default service account used for TFC agent nodes |
 | subnet\_name | Name of the subnet in the VPC |
 
- <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Requirements
 

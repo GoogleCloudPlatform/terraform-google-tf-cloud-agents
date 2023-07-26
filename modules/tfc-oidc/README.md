@@ -67,7 +67,7 @@ Once provisioned, you can use the `example-tfc-workspace-name` workspace from th
 | pool\_name | Pool name |
 | provider\_name | Provider name |
 
- <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Requirements
 

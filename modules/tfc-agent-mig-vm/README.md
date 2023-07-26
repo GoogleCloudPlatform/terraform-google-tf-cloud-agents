@@ -40,13 +40,13 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 | startup\_script | User startup script to run when instances spin up | `string` | `""` | no |
 | subnet\_ip | IP range for the subnet | `string` | `"10.10.10.0/24"` | no |
 | subnet\_name | Name for the subnet | `string` | `"tfc-agent-subnet"` | no |
-| subnetwork\_project | The ID of the project in which the subnetwork belongs. If it is not provided, the project\_id is used. | `string` | `""` | no |
-| tfc\_agent\_address | The HTTP or HTTPS address of the Terraform Cloud/Enterprise API. | `string` | `"https://app.terraform.io"` | no |
-| tfc\_agent\_auto\_update | Controls automatic core updates behavior. Acceptable values include disabled, patch, and minor | `string` | `"minor"` | no |
-| tfc\_agent\_labels | Terraform Cloud Agent labels to attach to the VMs | `set(string)` | `[]` | no |
-| tfc\_agent\_name\_prefix | This name may be used in the Terraform Cloud user interface to help easily identify the agent | `string` | `"tfc-agent-mig-vm"` | no |
-| tfc\_agent\_single | Enable single mode. This causes the agent to handle at most one job and<br>immediately exit thereafter. Useful for running agents as ephemeral<br>containers, VMs, or other isolated contexts with a higher-level scheduler<br>or process supervisor. | `bool` | `false` | no |
-| tfc\_agent\_token | Terraform Cloud Agent token. (TFC Organization Settings >> Agents) | `string` | n/a | yes |
+| subnetwork\_project | The project ID of the shared VPCs host (for shared vpc support). <br>If not provided, the project\_id is used | `string` | `""` | no |
+| tfc\_agent\_address | The HTTP or HTTPS address of the Terraform Cloud/Enterprise API | `string` | `"https://app.terraform.io"` | no |
+| tfc\_agent\_auto\_update | Controls automatic core updates behavior. <br>Acceptable values include disabled, patch, and minor | `string` | `"minor"` | no |
+| tfc\_agent\_labels | Terraform Cloud agent labels to attach to the VMs | `set(string)` | `[]` | no |
+| tfc\_agent\_name\_prefix | This name may be used in the Terraform Cloud user interface to help <br>easily identify the agent | `string` | `"tfc-agent-mig-vm"` | no |
+| tfc\_agent\_single | Enable single mode. This causes the agent to handle at most one job and<br>immediately exit thereafter. Useful for running agents as ephemeral<br>containers, VMs, or other isolated contexts with a higher-level scheduler<br>or process supervisor | `bool` | `false` | no |
+| tfc\_agent\_token | Terraform Cloud agent token. (Organization Settings >> Agents) | `string` | n/a | yes |
 | tfc\_agent\_version | Terraform Cloud Agent version to install | `string` | `"1.10.1"` | no |
 
 ## Outputs
@@ -59,7 +59,7 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 | network\_name | Name of the VPC |
 | service\_account | Service account email used with the MIG template |
 
- <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Requirements
 

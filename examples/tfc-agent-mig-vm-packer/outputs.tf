@@ -11,7 +11,7 @@ output "mig_name" {
 }
 
 output "service_account" {
-  description = "Service account email used with the MIG template"
+  description = "Service account email for GCE used with the MIG template"
   value       = module.tfc_agent_mig.service_account
 }
 
