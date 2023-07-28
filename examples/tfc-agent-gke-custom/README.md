@@ -44,7 +44,7 @@ If running from your own system, you will need:
     gcloud components update
 
     # Create the Google Artifact Repository for storing the agent
-    gcloud artifacts repositories create $REPOSITORY --location="$LOCATION" --repository-format="DOCKER" 
+    gcloud artifacts repositories create $REPOSITORY --location="$LOCATION" --repository-format="DOCKER"
 
     # Build the custom Terraform Cloud agent image using Cloud Build
     gcloud builds submit --config=cloudbuild.yaml \

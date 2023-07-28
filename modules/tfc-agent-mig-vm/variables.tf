@@ -40,7 +40,7 @@ variable "network_name" {
 variable "subnetwork_project" {
   type        = string
   description = <<-EOF
-    The project ID of the shared VPCs host (for shared vpc support). 
+    The project ID of the shared VPCs host (for shared vpc support).
     If not provided, the project_id is used
   EOF
   default     = ""
@@ -85,7 +85,7 @@ variable "machine_type" {
 variable "source_image_family" {
   type        = string
   description = <<-EOF
-    Source image family. If neither source_image nor source_image_family 
+    Source image family. If neither source_image nor source_image_family
     is specified, defaults to the latest public Ubuntu image
   EOF
   default     = "ubuntu-2204-lts"
@@ -121,7 +121,7 @@ variable "custom_metadata" {
 variable "cooldown_period" {
   type        = number
   description = <<-EOF
-    The number of seconds that the autoscaler should wait before it 
+    The number of seconds that the autoscaler should wait before it
     starts collecting information from a new instance
   EOF
   default     = 60
@@ -147,7 +147,7 @@ variable "tfc_agent_single" {
 variable "tfc_agent_auto_update" {
   type        = string
   description = <<-EOF
-    Controls automatic core updates behavior. 
+    Controls automatic core updates behavior.
     Acceptable values include disabled, patch, and minor
   EOF
   default     = "minor"
@@ -156,7 +156,7 @@ variable "tfc_agent_auto_update" {
 variable "tfc_agent_name_prefix" {
   type        = string
   description = <<-EOF
-    This name may be used in the Terraform Cloud user interface to help 
+    This name may be used in the Terraform Cloud user interface to help
     easily identify the agent
   EOF
   default     = "tfc-agent-mig-vm"

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- output "kubernetes_endpoint" {
+output "kubernetes_endpoint" {
   description = "The GKE cluster endpoint"
   sensitive   = true
   value       = module.tfc_agent_gke.kubernetes_endpoint

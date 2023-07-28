@@ -33,7 +33,7 @@ This example shows how to deploy a custom Terraform Cloud agent image with GKE.
 | max\_node\_count | Maximum number of nodes in the TFC agent node pool | `number` | `4` | no |
 | min\_node\_count | Minimum number of nodes in the TFC agent node pool | `number` | `2` | no |
 | network\_name | Name for the VPC network | `string` | `"tfc-agent-network"` | no |
-| network\_project\_id | The project ID of the shared VPCs host (for shared vpc support). <br>If not provided, the project\_id is used | `string` | `""` | no |
+| network\_project\_id | The project ID of the shared VPCs host (for shared vpc support).<br>If not provided, the project\_id is used | `string` | `""` | no |
 | project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent cluster | `string` | n/a | yes |
 | region | The GCP region to use when deploying resources | `string` | `"us-central1"` | no |
 | service\_account | Optional Service Account for the GKE nodes | `string` | `""` | no |

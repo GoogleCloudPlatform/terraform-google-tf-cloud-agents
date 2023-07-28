@@ -102,7 +102,7 @@ variable "allowed_audiences" {
 variable "issuer_uri" {
   type        = string
   description = <<-EOF
-    Workload Identity Pool Issuer URL for Terraform Cloud/Enterprise. 
+    Workload Identity Pool Issuer URL for Terraform Cloud/Enterprise.
     The default audience format used by TFC is of the form
     //iam.googleapis.com/projects/{project_id}/locations/global/workloadIdentityPools/{pool_id}/providers/{provider_id}
     which matches with the default accepted audience format on GCP
@@ -134,7 +134,7 @@ variable "sa_mapping" {
     attribute = string
   }))
   description = <<-EOF
-    Service Account resource names and corresponding WIF provider attributes. 
+    Service Account resource names and corresponding WIF provider attributes.
     If attribute is set to `*` all identities in the pool are granted access to SAs
   EOF
   default     = {}

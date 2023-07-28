@@ -85,4 +85,4 @@ In this example, Packer creates a VM image that has the following:
 | mig\_name | The name of the MIG |
 | service\_account | Service account email for GCE used with the MIG template |
 
- <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

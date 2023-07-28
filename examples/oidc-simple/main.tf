@@ -46,7 +46,7 @@ resource "google_service_account" "sa" {
   account_id = "terraform-storage-sa"
 }
 
-# Give the service account necessary permissions, 
+# Give the service account necessary permissions,
 # for ex. storage access - see role_list variable
 resource "google_project_iam_member" "project" {
   project  = var.project_id

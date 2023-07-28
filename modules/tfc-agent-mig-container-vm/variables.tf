@@ -40,7 +40,7 @@ variable "network_name" {
 variable "subnetwork_project" {
   type        = string
   description = <<-EOF
-    The project ID of the shared VPCs host (for shared vpc support). 
+    The project ID of the shared VPCs host (for shared vpc support).
     If not provided, the project_id is used
   EOF
   default     = ""
