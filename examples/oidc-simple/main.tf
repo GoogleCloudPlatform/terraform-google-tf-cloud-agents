@@ -70,11 +70,9 @@ resource "tfe_variable" "enable_gcp_provider_auth" {
 # pool ID, and provider ID
 resource "tfe_variable" "tfc_gcp_workload_provider_name" {
   workspace_id = tfe_workspace.tfc_workspace.id
-
   key      = "TFC_GCP_WORKLOAD_PROVIDER_NAME"
   value    = module.oidc.provider_name
   category = "env"
-
   description = "The workload provider name to authenticate against."
 }
 
