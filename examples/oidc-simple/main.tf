@@ -78,12 +78,10 @@ resource "tfe_variable" "tfc_gcp_workload_provider_name" {
 
 resource "tfe_variable" "tfc_gcp_service_account_email" {
   workspace_id = tfe_workspace.tfc_workspace.id
-
   key      = "TFC_GCP_RUN_SERVICE_ACCOUNT_EMAIL"
   value    = google_service_account.sa.email
   category = "env"
-
-  description = "The GCP service account email runs will use to authenticate."
+  description = "The GCP service account TFC agents will use to authenticate."
 }
 
 # Use the OIDC module to provision the Workload identitly pool
