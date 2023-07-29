@@ -59,7 +59,6 @@ resource "google_project_iam_member" "project" {
 # to authenticate to GCP.
 resource "tfe_variable" "enable_gcp_provider_auth" {
   workspace_id = tfe_workspace.tfc_workspace.id
-
   key      = "TFC_GCP_PROVIDER_AUTH"
   value    = "true"
   category = "env"
