@@ -37,7 +37,7 @@ variable "network_name" {
   default     = "tfc-agent-network"
 }
 
-variable "subnetwork_project" {
+variable "network_project" {
   type        = string
   description = <<-EOF
     The project ID of the shared VPCs host (for shared vpc support).
