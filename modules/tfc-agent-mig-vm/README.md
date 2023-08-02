@@ -31,6 +31,7 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 | max\_replicas | Maximum number of Terraform agent instances | `number` | `10` | no |
 | min\_replicas | Minimum number of Terraform agent instances | `number` | `1` | no |
 | network\_name | Name for the VPC network | `string` | `"tfc-agent-network"` | no |
+| network\_project | The project ID of the shared VPCs host (for shared vpc support).<br>If not provided, the project\_id is used | `string` | `""` | no |
 | project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent | `string` | n/a | yes |
 | region | The GCP region to use when deploying resources | `string` | `"us-central1"` | no |
 | service\_account | Service account email address to use with the MIG template | `string` | `""` | no |
@@ -40,7 +41,6 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 | startup\_script | User startup script to run when instances spin up | `string` | `""` | no |
 | subnet\_ip | IP range for the subnet | `string` | `"10.10.10.0/24"` | no |
 | subnet\_name | Name for the subnet | `string` | `"tfc-agent-subnet"` | no |
-| subnetwork\_project | The project ID of the shared VPCs host (for shared vpc support).<br>If not provided, the project\_id is used | `string` | `""` | no |
 | tfc\_agent\_address | The HTTP or HTTPS address of the Terraform Cloud/Enterprise API | `string` | `"https://app.terraform.io"` | no |
 | tfc\_agent\_auto\_update | Controls automatic core updates behavior.<br>Acceptable values include disabled, patch, and minor | `string` | `"minor"` | no |
 | tfc\_agent\_labels | Terraform Cloud agent labels to attach to the VMs | `set(string)` | `[]` | no |

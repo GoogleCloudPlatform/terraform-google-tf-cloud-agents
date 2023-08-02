@@ -121,7 +121,7 @@ resource "kubernetes_deployment" "tfc_agent_deployment" {
       }
     }
 
-    replicas = 2
+    replicas = var.tfc_agent_min_replicas
 
     template {
       metadata {
@@ -210,8 +210,8 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "tfc_agent_hpa" {
       name = "${local.tfc_agent_name}-deployment"
     }
 
-    min_replicas = 2
-    max_replicas = 10
+    min_replicas = var.tfc_agent_min_replicas
+    max_replicas = var.tfc_agent_max_replicas
 
     metric {
       type = "Resource"

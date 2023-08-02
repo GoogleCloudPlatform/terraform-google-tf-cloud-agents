@@ -64,20 +64,23 @@ variable "provider_description" {
   default     = "Workload Identity Pool Provider managed by Terraform"
 }
 
-
-# For more info please see
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool_provider
 variable "attribute_condition" {
   type        = string
-  description = "Workload Identity Pool Provider attribute condition expression"
+  description = <<-EOF
+  Workload Identity Pool Provider attribute condition expression
+  For more info please see
+  https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool_provider
+  EOF
   default     = ""
 }
 
-# For more info please see
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool_provider
 variable "attribute_mapping" {
   type        = map(any)
-  description = "Workload Identity Pool Provider attribute mapping"
+  description = <<-EOF
+  Workload Identity Pool Provider attribute mapping
+  For more info please see
+  https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool_provider
+  EOF
   default = {
     "google.subject"                        = "assertion.sub",
     "attribute.aud"                         = "assertion.aud",

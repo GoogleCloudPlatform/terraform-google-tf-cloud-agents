@@ -132,7 +132,7 @@ module "mig_template" {
   network            = local.network_name
   subnetwork         = var.subnet_name
   region             = var.region
-  subnetwork_project = var.subnetwork_project != "" ? var.subnetwork_project : var.project_id
+  subnetwork_project = var.network_project != "" ? var.network_project : var.project_id
   service_account = {
     email = local.service_account
     scopes = [

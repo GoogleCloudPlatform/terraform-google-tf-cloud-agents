@@ -59,9 +59,9 @@ resource "google_project_iam_member" "project" {
 # to authenticate to GCP.
 resource "tfe_variable" "enable_gcp_provider_auth" {
   workspace_id = tfe_workspace.tfc_workspace.id
-  key      = "TFC_GCP_PROVIDER_AUTH"
-  value    = "true"
-  category = "env"
+  key          = "TFC_GCP_PROVIDER_AUTH"
+  value        = "true"
+  category     = "env"
 
   description = "Enable the Workload Identity integration for GCP."
 }
@@ -70,18 +70,18 @@ resource "tfe_variable" "enable_gcp_provider_auth" {
 # pool ID, and provider ID
 resource "tfe_variable" "tfc_gcp_workload_provider_name" {
   workspace_id = tfe_workspace.tfc_workspace.id
-  key      = "TFC_GCP_WORKLOAD_PROVIDER_NAME"
-  value    = module.oidc.provider_name
-  category = "env"
-  description = "The workload provider name to authenticate against."
+  key          = "TFC_GCP_WORKLOAD_PROVIDER_NAME"
+  value        = module.oidc.provider_name
+  category     = "env"
+  description  = "The workload provider name to authenticate against."
 }
 
 resource "tfe_variable" "tfc_gcp_service_account_email" {
   workspace_id = tfe_workspace.tfc_workspace.id
-  key      = "TFC_GCP_RUN_SERVICE_ACCOUNT_EMAIL"
-  value    = google_service_account.sa.email
-  category = "env"
-  description = "The GCP service account TFC agents will use to authenticate."
+  key          = "TFC_GCP_RUN_SERVICE_ACCOUNT_EMAIL"
+  value        = google_service_account.sa.email
+  category     = "env"
+  description  = "The GCP service account TFC agents will use to authenticate."
 }
 
 # Use the OIDC module to provision the Workload identitly pool

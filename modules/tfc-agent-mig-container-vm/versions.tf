@@ -32,4 +32,7 @@ terraform {
     }
   }
 
+  provider_meta "google" {
+    module_name = "blueprints/terraform/terraform-google-tf-cloud-agents:tfc-agent-mig-container-vm/v0.0.1"
+  }
 }

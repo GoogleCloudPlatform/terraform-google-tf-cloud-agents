@@ -16,23 +16,23 @@
 
 variable "project_id" {
   type        = string
-  description = "The project id to create WIF pool and example SA"
+  description = "The project id to create Workload Identity Federation pool and example Service Account"
 }
 
 variable "tfc_org_name" {
   type        = string
-  description = "Terraform Cloud org name where the WIF pool will be attached"
+  description = "Terraform Cloud org name where the Workload Identity Federation pool will be attached"
 }
 
 variable "tfc_project_name" {
   type        = string
-  description = "Terraform Cloud project name where the WIF pool will be attached"
+  description = "Terraform Cloud project name where the Workload Identity Federation pool will be attached"
   default     = "GCP OIDC"
 }
 
 variable "tfc_workspace_name" {
   type        = string
-  description = "Terraform Cloud workspace name where the WIF pool will be attached"
+  description = "Terraform Cloud workspace name where the Workload Identity Federation pool will be attached"
   default     = "gcp-oidc"
 }
 

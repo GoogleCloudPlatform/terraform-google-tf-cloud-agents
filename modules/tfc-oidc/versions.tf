@@ -22,4 +22,8 @@ terraform {
     }
   }
   required_version = ">= 0.13"
+
+  provider_meta "google" {
+    module_name = "blueprints/terraform/terraform-google-tf-cloud-agents:tfc-oidc/v0.0.1"
+  }
 }
