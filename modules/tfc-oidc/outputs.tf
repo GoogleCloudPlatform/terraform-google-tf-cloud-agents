@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 4.0"
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = "~> 4.0"
-    }
-    tfe = {
-      source  = "hashicorp/tfe"
-      version = "~> 0.45.0"
-    }
-  }
-  required_version = ">= 0.13"
+output "pool_name" {
+  description = "Pool name"
+  value       = google_iam_workload_identity_pool.tfc_pool.name
+}
+
+output "provider_name" {
+  description = "Provider name"
+  value       = google_iam_workload_identity_pool_provider.tfc_provider.name
 }

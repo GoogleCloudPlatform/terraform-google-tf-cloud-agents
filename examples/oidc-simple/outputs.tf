@@ -14,24 +14,17 @@
  * limitations under the License.
  */
 
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 4.0"
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = "~> 4.0"
-    }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.0"
-    }
-    tfe = {
-      source  = "hashicorp/tfe"
-      version = "~> 0.45.0"
-    }
-  }
-  required_version = ">= 0.13"
+output "pool_name" {
+  description = "Pool name"
+  value       = module.oidc.pool_name
+}
+
+output "provider_name" {
+  description = "Provider name"
+  value       = module.oidc.provider_name
+}
+
+output "sa_email" {
+  description = "Example SA email"
+  value       = google_service_account.sa.email
 }

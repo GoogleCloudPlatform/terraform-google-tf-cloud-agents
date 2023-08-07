@@ -57,26 +57,26 @@ resource "google_compute_subnetwork" "tfc_agent_subnetwork" {
 }
 
 /*****************************************
-  TFC Agent GKE
+  TFC agent GKE
  *****************************************/
 
 module "tfc_agent_cluster" {
   source                   = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster/"
   version                  = "~> 24.0"
   project_id               = var.project_id
-  name                     = local.tfc_agent_name
-  regional                 = false
   region                   = var.region
   zones                    = var.zones
   network                  = local.network_name
-  network_project_id       = var.subnetwork_project != "" ? var.subnetwork_project : var.project_id
+  name                     = local.tfc_agent_name
   subnetwork               = local.subnet_name
+  service_account          = local.service_account
+  network_project_id       = var.network_project_id != "" ? var.network_project_id : var.project_id
   ip_range_pods            = var.ip_range_pods_name
   ip_range_services        = var.ip_range_services_name
   logging_service          = "logging.googleapis.com/kubernetes"
   monitoring_service       = "monitoring.googleapis.com/kubernetes"
   remove_default_node_pool = true
-  service_account          = local.service_account
+  regional                 = false
   node_pools = [
     {
       name         = "tfc-agent-pool"
@@ -89,23 +89,11 @@ module "tfc_agent_cluster" {
 }
 
 /*****************************************
-  IAM Bindings GKE SVC
+  K8S resources for configuring TFC agent
  *****************************************/
-
-# Allow GKE to pull images from GCR
-resource "google_project_iam_member" "gke" {
-  count   = var.service_account == "" ? 1 : 0
-  project = var.project_id
-  role    = "roles/storage.objectViewer"
-  member  = "serviceAccount:${module.tfc_agent_cluster.service_account}"
-}
 
 data "google_client_config" "default" {
 }
-
-/*****************************************
-  K8S secrets for configuring TFC agent
- *****************************************/
 
 resource "kubernetes_secret" "tfc_agent_secrets" {
   metadata {
@@ -117,5 +105,125 @@ resource "kubernetes_secret" "tfc_agent_secrets" {
     tfc_agent_single      = var.tfc_agent_single
     tfc_agent_auto_update = var.tfc_agent_auto_update
     tfc_agent_name        = local.tfc_agent_name
+  }
+}
+
+# Deploy the agent
+resource "kubernetes_deployment" "tfc_agent_deployment" {
+  metadata {
+    name = "${local.tfc_agent_name}-deployment"
+  }
+
+  spec {
+    selector {
+      match_labels = {
+        app = local.tfc_agent_name
+      }
+    }
+
+    replicas = var.tfc_agent_min_replicas
+
+    template {
+      metadata {
+        labels = {
+          app = local.tfc_agent_name
+        }
+      }
+
+      spec {
+        container {
+          name  = local.tfc_agent_name
+          image = var.tfc_agent_image
+
+          env {
+            name = "TFC_ADDRESS"
+            value_from {
+              secret_key_ref {
+                name = var.tfc_agent_k8s_secrets
+                key  = "tfc_agent_address"
+              }
+            }
+          }
+
+          env {
+            name = "TFC_AGENT_TOKEN"
+            value_from {
+              secret_key_ref {
+                name = var.tfc_agent_k8s_secrets
+                key  = "tfc_agent_token"
+              }
+            }
+          }
+
+          env {
+            name = "TFC_AGENT_NAME"
+            value_from {
+              secret_key_ref {
+                name = var.tfc_agent_k8s_secrets
+                key  = "tfc_agent_name"
+              }
+            }
+          }
+
+          env {
+            name = "TFC_AGENT_SINGLE"
+            value_from {
+              secret_key_ref {
+                name = var.tfc_agent_k8s_secrets
+                key  = "tfc_agent_single"
+              }
+            }
+          }
+
+          env {
+            name = "TFC_AGENT_AUTO_UPDATE"
+            value_from {
+              secret_key_ref {
+                name = var.tfc_agent_k8s_secrets
+                key  = "tfc_agent_auto_update"
+              }
+            }
+          }
+
+          # https://developer.hashicorp.com/terraform/cloud-docs/agents/requirements
+          resources {
+            requests = {
+              memory = var.tfc_agent_memory_request
+              cpu    = var.tfc_agent_cpu_request
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+# Deploy a horizontal pod autoscaler for the agent
+resource "kubernetes_horizontal_pod_autoscaler_v2" "tfc_agent_hpa" {
+  metadata {
+    name = "${local.tfc_agent_name}-deployment-hpa"
+  }
+
+  spec {
+    scale_target_ref {
+      kind = "Deployment"
+      name = "${local.tfc_agent_name}-deployment"
+    }
+
+    min_replicas = var.tfc_agent_min_replicas
+    max_replicas = var.tfc_agent_max_replicas
+
+    metric {
+      type = "Resource"
+
+      resource {
+        name = "cpu"
+
+        target {
+          type                = "Utilization"
+          average_utilization = 50
+        }
+      }
+    }
   }
 }

@@ -30,16 +30,16 @@ output "mig_instance_template" {
 }
 
 output "network_name" {
-  description = "Name of VPC"
+  description = "Name of the VPC"
   value       = local.network_name
 }
 
 output "subnet_name" {
-  description = "Name of VPC"
+  description = "Name of the subnet in the VPC"
   value       = local.subnet_name
 }
 
 output "service_account" {
-  description = "Service account email for GCE"
+  description = "Service account email attached to MIG templates for GCE"
   value       = local.service_account
 }

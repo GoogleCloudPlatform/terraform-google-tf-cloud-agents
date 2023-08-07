@@ -25,7 +25,7 @@ terraform {
 
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.0"
+      version = ">= 2.0, <3.0"
     }
 
     random = {
@@ -34,4 +34,7 @@ terraform {
     }
   }
 
+  provider_meta "google" {
+    module_name = "blueprints/terraform/terraform-google-tf-cloud-agents:tfc-agent-gke/v0.0.1"
+  }
 }

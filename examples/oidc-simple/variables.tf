@@ -16,34 +16,30 @@
 
 variable "project_id" {
   type        = string
-  description = "The Google Cloud Platform project ID to deploy Terraform Cloud agent MIG"
+  description = "The project id to create Workload Identity Federation pool and example Service Account"
 }
 
 variable "tfc_org_name" {
   type        = string
-  description = "Terraform Cloud org name where the agent pool will be created"
+  description = "Terraform Cloud org name where the Workload Identity Federation pool will be attached"
 }
 
 variable "tfc_project_name" {
   type        = string
-  description = "Terraform Cloud project name to be created"
-  default     = "GCP agents Container VM"
+  description = "Terraform Cloud project name where the Workload Identity Federation pool will be attached"
+  default     = "GCP OIDC"
 }
 
 variable "tfc_workspace_name" {
   type        = string
-  description = "Terraform Cloud workspace name to be created"
-  default     = "tfc-agent-mig-container-vm-simple"
+  description = "Terraform Cloud workspace name where the Workload Identity Federation pool will be attached"
+  default     = "gcp-oidc"
 }
 
-variable "tfc_agent_pool_name" {
-  type        = string
-  description = "Terraform Cloud agent pool name to be created"
-  default     = "tfc-agent-mig-container-vm-simple-pool"
-}
-
-variable "tfc_agent_pool_token_description" {
-  type        = string
-  description = "Terraform Cloud agent pool token description"
-  default     = "tfc-agent-mig-container-vm-simple-pool-token"
+variable "role_list" {
+  description = "Google Cloud roles required for the Service Account"
+  type        = list(string)
+  default = [
+    "roles/storage.admin"
+  ]
 }

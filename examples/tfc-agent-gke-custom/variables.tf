@@ -16,7 +16,7 @@
 
 variable "project_id" {
   type        = string
-  description = "The Google Cloud Platform project ID to deploy Terraform Cloud agent MIG"
+  description = "The Google Cloud Platform project ID to deploy Terraform Cloud agent cluster"
 }
 
 variable "tfc_org_name" {
@@ -27,23 +27,28 @@ variable "tfc_org_name" {
 variable "tfc_project_name" {
   type        = string
   description = "Terraform Cloud project name to be created"
-  default     = "GCP agents Container VM"
+  default     = "GCP agents GKE"
 }
 
 variable "tfc_workspace_name" {
   type        = string
   description = "Terraform Cloud workspace name to be created"
-  default     = "tfc-agent-mig-container-vm-simple"
+  default     = "tfc-agent-gke-custom"
 }
 
 variable "tfc_agent_pool_name" {
   type        = string
   description = "Terraform Cloud agent pool name to be created"
-  default     = "tfc-agent-mig-container-vm-simple-pool"
+  default     = "tfc-agent-gke-custom-pool"
 }
 
 variable "tfc_agent_pool_token_description" {
   type        = string
   description = "Terraform Cloud agent pool token description"
-  default     = "tfc-agent-mig-container-vm-simple-pool-token"
+  default     = "tfc-agent-gke-custom-pool-token"
+}
+
+variable "tfc_agent_image" {
+  type        = string
+  description = "The custom Terraform Cloud agent image to use"
 }
