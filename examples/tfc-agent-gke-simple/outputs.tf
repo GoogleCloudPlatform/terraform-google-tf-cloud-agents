@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
+output "project_id" {
+  description = "The Google Cloud Platform project ID to deploy Terraform Cloud agent cluster"
+  value       = var.project_id
+}
+
 output "kubernetes_endpoint" {
   description = "The GKE cluster endpoint"
   sensitive   = true
   value       = module.tfc_agent_gke.kubernetes_endpoint
-}
-
-output "client_token" {
-  description = "The bearer token for auth"
-  sensitive   = true
-  value       = module.tfc_agent_gke.client_token
 }
 
 output "ca_certificate" {
