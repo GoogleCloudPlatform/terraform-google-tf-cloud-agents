@@ -87,11 +87,11 @@ If running from your own system, you will need:
 | Name | Description |
 |------|-------------|
 | ca\_certificate | The cluster CA certificate (base64 encoded) |
-| client\_token | The bearer token for auth |
 | cluster\_name | GKE cluster name |
 | kubernetes\_endpoint | The cluster endpoint |
 | location | GKE cluster location |
 | network\_name | Name of the VPC |
+| project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent cluster |
 | service\_account | The default service account used for TFC agent nodes |
 | subnet\_name | Name of the subnet in the VPC |
 

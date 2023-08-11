@@ -83,6 +83,7 @@ In this example, Packer creates a VM image that has the following:
 | mig\_instance\_group | The instance group url of the created MIG |
 | mig\_instance\_template | The name of the MIG Instance Template |
 | mig\_name | The name of the MIG |
+| project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent MIG |
 | service\_account | Service account email for GCE used with the MIG template |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
