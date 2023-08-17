@@ -77,6 +77,12 @@ variable "ssh_username" {
   default     = "ubuntu"
 }
 
+variable "tfc_agent_image" {
+  type        = string
+  description = "The name of the Terraform Cloud image to use"
+  default     = "tfc-agent-image"
+}
+
 variable "tfc_agent_version" {
   type        = string
   description = "Version of the Terraform Cloud agent to install in the image"
@@ -89,11 +95,6 @@ variable "zone" {
   default     = "us-central1-a"
 }
 
-locals {
-  timestamp  = regex_replace(timestamp(), "[- TZ:]", "")
-  image_name = "tfc-agent-image-${local.timestamp}"
-}
-
 source "googlecompute" "agent" {
   project_id              = var.project_id
   source_image_family     = var.source_image_family
@@ -103,7 +104,7 @@ source "googlecompute" "agent" {
   disk_size               = var.disk_size
   disk_type               = var.disk_type
   ssh_username            = var.ssh_username
-  image_name              = local.image_name
+  image_name              = var.tfc_agent_image
   image_family            = var.image_family
   use_os_login            = true
 

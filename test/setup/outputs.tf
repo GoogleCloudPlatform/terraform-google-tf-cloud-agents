@@ -22,3 +22,15 @@ output "sa_key" {
   value     = google_service_account_key.int_test.private_key
   sensitive = true
 }
+
+output "tfc_org_name" {
+  value = data.tfe_organization.tfc_org.name
+}
+
+output "tfc_agent_image" {
+  value = "us-central1-docker.pkg.dev/${module.project.project_id}/hashicorp/tfc-agent:latest"
+}
+
+output "source_image" {
+  value = "tfc-agent-image"
+}

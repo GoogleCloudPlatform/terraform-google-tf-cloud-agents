@@ -24,3 +24,9 @@ variable "folder_id" {
 variable "billing_account" {
   description = "The billing account id associated with the project, e.g. XXXXXX-YYYYYY-ZZZZZZ"
 }
+
+variable "tfc_org_name" {
+  type        = string
+  default     = "tfc-integration-sandbox"
+  description = "Terraform Cloud org name to use"
+}

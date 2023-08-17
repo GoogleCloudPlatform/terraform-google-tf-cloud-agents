@@ -30,3 +30,15 @@ module "project" {
     "serviceusage.googleapis.com"
   ]
 }
+
+data "tfe_organization" "tfc_org" {
+  name = var.tfc_org_name
+}
+
+resource "google_artifact_registry_repository" "hashicorp" {
+  project       = module.project.project_id
+  location      = "us-central1"
+  repository_id = "hashicorp"
+  description   = "HashiCorp Docker repository"
+  format        = "DOCKER"
+}
