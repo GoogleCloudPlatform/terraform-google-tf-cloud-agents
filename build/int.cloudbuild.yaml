@@ -27,3 +27,7 @@ tags:
 substitutions:
   _DOCKER_IMAGE_DEVELOPER_TOOLS: 'cft/developer-tools'
   _DOCKER_TAG_VERSION_DEVELOPER_TOOLS: '1'
+availableSecrets:
+  secretManager:
+  - versionName: $_TFE_TOKEN_SECRET_ID/versions/latest
+    env: 'TFE_TOKEN'
