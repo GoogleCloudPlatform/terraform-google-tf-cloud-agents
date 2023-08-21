@@ -27,15 +27,15 @@ steps:
   args: ['/bin/bash', '-c', 'sleep 120']
 - name: "gcr.io/cloud-builders/docker"
   args:
-    ["build", "-t", "us-central1-docker.pkg.dev/$PROJECT_ID/hashicorp/tfc-agent:latest", "-f", "examples/tfc-agent-gke-custom/Dockerfile", "examples/tfc-agent-gke-custom"]
+    ["build", "-t", "us-central1-docker.pkg.dev/$TF_VAR_project_id/hashicorp/tfc-agent:latest", "-f", "examples/tfc-agent-gke-custom/Dockerfile", "examples/tfc-agent-gke-custom"]
 - name: 'hashicorp/packer:1.9.1'
   args:
-    ["init", "-var", "project_id=$PROJECT_ID", "-var", "tfc_agent_version=$_TFC_AGENT_VERSION", "examples/tfc-agent-mig-vm-packer/packer/packer.pkr.hcl"]
+    ["init", "-var", "project_id=$TF_VAR_project_id", "-var", "tfc_agent_version=$_TFC_AGENT_VERSION", "examples/tfc-agent-mig-vm-packer/packer/packer.pkr.hcl"]
   env:
   - 'TFC_AGENT_VERSION=$_TFC_AGENT_VERSION'
 - name: 'hashicorp/packer:1.9.1'
   args:
-    ["build", "-force", "-var", "project_id=$PROJECT_ID", "-var", "tfc_agent_version=$_TFC_AGENT_VERSION", "examples/tfc-agent-mig-vm-packer/packer/packer.pkr.hcl"]
+    ["build", "-force", "-var", "project_id=$TF_VAR_project_id", "-var", "tfc_agent_version=$_TFC_AGENT_VERSION", "examples/tfc-agent-mig-vm-packer/packer/packer.pkr.hcl"]
   env:
   - 'TFC_AGENT_VERSION=$_TFC_AGENT_VERSION'
 - id: init
@@ -54,7 +54,7 @@ steps:
   args: ['/bin/bash', '-c', 'cft test run all --stage destroy --verbose']
   secretEnv: ['TFE_TOKEN']
 images:
-  - "us-central1-docker.pkg.dev/$PROJECT_ID/hashicorp/tfc-agent:latest"
+  - "us-central1-docker.pkg.dev/$TF_VAR_project_id/hashicorp/tfc-agent:latest"
 tags:
 - 'ci'
 - 'integration'
