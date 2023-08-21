@@ -106,7 +106,6 @@ source "googlecompute" "agent" {
   ssh_username            = var.ssh_username
   image_name              = var.tfc_agent_image
   image_family            = var.image_family
-  use_os_login            = true
 
   disable_default_service_account = false
 }
