@@ -26,10 +26,11 @@ module "project" {
   auto_create_network = true
 
   activate_apis = [
+    "artifactregistry.googleapis.com",
     "cloudresourcemanager.googleapis.com",
-    "storage-api.googleapis.com",
+    "compute.googleapis.com",
     "serviceusage.googleapis.com",
-    "artifactregistry.googleapis.com"
+    "storage-api.googleapis.com",
   ]
 }
 
