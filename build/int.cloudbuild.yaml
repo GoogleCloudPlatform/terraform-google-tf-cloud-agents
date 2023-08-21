@@ -43,12 +43,15 @@ steps:
 - id: apply
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'cft test run all --stage apply --verbose']
+  secretEnv: ['TFE_TOKEN']
 - id: verify
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'cft test run all --stage verify --verbose']
+  secretEnv: ['TFE_TOKEN']
 - id: destroy
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'cft test run all --stage destroy --verbose']
+  secretEnv: ['TFE_TOKEN']
 images:
   - "us-central1-docker.pkg.dev/$PROJECT_ID/hashicorp/tfc-agent:latest"
 tags:
