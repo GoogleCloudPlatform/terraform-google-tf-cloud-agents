@@ -43,3 +43,10 @@ resource "google_artifact_registry_repository" "hashicorp" {
   description   = "HashiCorp Docker repository"
   format        = "DOCKER"
 }
+
+resource "local_file" "env_file" {
+  filename = "${path.module}/outputs.env"
+  content  = <<EOT
+_SETUP_PROJECT_ID=${module.project.project_id}
+EOT
+}
