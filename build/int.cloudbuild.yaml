@@ -25,20 +25,23 @@ steps:
 - id: sleep
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'sleep 120']
-- name: "gcr.io/cloud-builders/docker"
+- id: docker-push
+  name: "gcr.io/cloud-builders/docker"
   script: |
     #!/usr/bin/env bash
     source test/setup/outputs.env
     docker build -t us-central1-docker.pkg.dev/$_SETUP_PROJECT_ID/hashicorp/tfc-agent:latest -f examples/tfc-agent-gke-custom/Dockerfile examples/tfc-agent-gke-custom
     docker push us-central1-docker.pkg.dev/$_SETUP_PROJECT_ID/hashicorp/tfc-agent:latest
-- name: 'hashicorp/packer:1.9.1'
+- id: packer-init
+  name: 'hashicorp/packer:1.9.1'
   script: |
     #!/usr/bin/env bash
     source test/setup/outputs.env
     packer init -var project_id=$_SETUP_PROJECT_ID examples/tfc-agent-mig-vm-packer/packer/packer.pkr.hcl
   env:
   - 'TFC_AGENT_VERSION=$_TFC_AGENT_VERSION'
-- name: 'hashicorp/packer:1.9.1'
+- id: packer-build
+  name: 'hashicorp/packer:1.9.1'
   script: |
     #!/usr/bin/env bash
     source test/setup/outputs.env

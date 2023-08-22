@@ -64,5 +64,6 @@ module "tfc_agent_mig" {
   project_id      = var.project_id
   create_network  = true
   network_name    = local.network_name
+  subnet_name     = local.network_name
   tfc_agent_token = tfe_agent_token.tfc_agent_token.token
 }

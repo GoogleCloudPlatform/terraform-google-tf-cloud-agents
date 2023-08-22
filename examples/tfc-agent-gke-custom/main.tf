@@ -80,6 +80,7 @@ module "tfc_agent_gke" {
   source          = "../../modules/tfc-agent-gke"
   create_network  = true
   network_name    = local.network_name
+  subnet_name     = local.network_name
   project_id      = var.project_id
   tfc_agent_image = var.tfc_agent_image
   tfc_agent_token = tfe_agent_token.tfc_agent_token.token

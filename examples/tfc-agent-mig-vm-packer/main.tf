@@ -62,6 +62,7 @@ module "tfc_agent_mig" {
   source               = "../../modules/tfc-agent-mig-vm"
   create_network       = true
   network_name         = local.network_name
+  subnet_name          = local.network_name
   project_id           = var.project_id
   source_image         = var.source_image
   source_image_project = var.source_image_project != null ? var.source_image_project : var.project_id
