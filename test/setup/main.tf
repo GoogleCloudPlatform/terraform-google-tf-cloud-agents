@@ -30,6 +30,7 @@ module "project" {
     "cloudresourcemanager.googleapis.com",
     "compute.googleapis.com",
     "serviceusage.googleapis.com",
+    "secretmanager.googleapis.com",
     "storage-api.googleapis.com",
   ]
 }
