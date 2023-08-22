@@ -116,7 +116,7 @@ build {
   provisioner "shell" {
     environment_vars = ["DEBIAN_FRONTEND=noninteractive"]
     execute_command  = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-    inline = [ 
+    inline = [
       "apt-get update",
       "apt-get dist-upgrade -q -y",
       "apt-get update",
