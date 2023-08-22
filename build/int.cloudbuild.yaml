@@ -197,3 +197,5 @@ availableSecrets:
   secretManager:
   - versionName: $_TFE_TOKEN_SECRET_ID/versions/latest
     env: 'TFE_TOKEN'
+options:
+  machineType: 'E2_HIGHCPU_8'
