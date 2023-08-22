@@ -35,14 +35,14 @@ steps:
   script: |
     #!/usr/bin/env bash
     source test/setup/outputs.env
-    packer init -var project_id=$_SETUP_PROJECT_ID -var tfc_agent_version=$_TFC_AGENT_VERSION examples/tfc-agent-mig-vm-packer/packer/packer.pkr.hcl
+    packer init -var project_id=$_SETUP_PROJECT_ID examples/tfc-agent-mig-vm-packer/packer/packer.pkr.hcl
   env:
   - 'TFC_AGENT_VERSION=$_TFC_AGENT_VERSION'
 - name: 'hashicorp/packer:1.9.1'
   script: |
     #!/usr/bin/env bash
     source test/setup/outputs.env
-    packer build -force -var project_id=$_SETUP_PROJECT_ID -var tfc_agent_version=$_TFC_AGENT_VERSION examples/tfc-agent-mig-vm-packer/packer
+    packer build -force -var project_id=$_SETUP_PROJECT_ID examples/tfc-agent-mig-vm-packer/packer
   env:
   - 'TFC_AGENT_VERSION=$_TFC_AGENT_VERSION'
 - id: init
