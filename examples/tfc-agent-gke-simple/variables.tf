@@ -27,7 +27,7 @@ variable "tfc_org_name" {
 variable "tfc_project_name" {
   type        = string
   description = "Terraform Cloud project name to be created"
-  default     = "GCP agents GKE"
+  default     = "GCP agents GKE simple"
 }
 
 variable "tfc_workspace_name" {
@@ -42,7 +42,7 @@ variable "tfc_agent_pool_name" {
   default     = "tfc-agent-gke-simple-pool"
 }
 
-variable "tfc_agent_pool_token_description_description" {
+variable "tfc_agent_pool_token_description" {
   type        = string
   description = "Terraform Cloud agent pool token description"
   default     = "tfc-agent-gke-simple-pool-token"
