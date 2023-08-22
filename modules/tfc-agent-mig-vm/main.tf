@@ -83,10 +83,10 @@ resource "google_service_account" "tfc_agent_service_account" {
 resource "google_secret_manager_secret" "tfc_agent_secret" {
   provider  = google-beta
   project   = var.project_id
-  secret_id = "tfc-agent"
+  secret_id = var.tfc_agent_secret
 
   labels = {
-    label = "tfc-agent"
+    label = var.tfc_agent_secret
   }
 
   replication {

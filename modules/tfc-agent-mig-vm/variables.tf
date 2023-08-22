@@ -127,6 +127,12 @@ variable "cooldown_period" {
   default     = 60
 }
 
+variable "tfc_agent_secret" {
+  type        = string
+  description = "The secret id for storing the Terraform Cloud agent secret"
+  default     = "tfc-agent"
+}
+
 variable "tfc_agent_address" {
   type        = string
   description = "The HTTP or HTTPS address of the Terraform Cloud/Enterprise API"

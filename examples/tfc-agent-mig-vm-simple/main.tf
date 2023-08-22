@@ -59,11 +59,19 @@ resource "tfe_agent_token" "tfc_agent_token" {
   description   = var.tfc_agent_pool_token_description
 }
 
+resource "google_service_account" "tfc_agent_service_account" {
+  project      = var.project_id
+  account_id   = "tfc-agent-mig-vm-sa"
+  display_name = "Terraform Cloud agent VM simple Service Account"
+}
+
 module "tfc_agent_mig" {
-  source          = "../../modules/tfc-agent-mig-vm"
-  project_id      = var.project_id
-  create_network  = true
-  network_name    = local.network_name
-  subnet_name     = local.network_name
-  tfc_agent_token = tfe_agent_token.tfc_agent_token.token
+  source           = "../../modules/tfc-agent-mig-vm"
+  project_id       = var.project_id
+  create_network   = true
+  network_name     = local.network_name
+  subnet_name      = local.network_name
+  tfc_agent_secret = "tfc-agent-vm-simple"
+  tfc_agent_token  = tfe_agent_token.tfc_agent_token.token
+  service_account  = google_service_account.tfc_agent_service_account.email
 }

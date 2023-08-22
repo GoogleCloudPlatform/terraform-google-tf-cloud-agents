@@ -71,6 +71,29 @@ steps:
   secretEnv: ['TFE_TOKEN']
   waitFor:
     - "verify-oidc"
+- id: init-gke-custom
+  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentGkeCustom --stage init --verbose']
+  waitFor:
+    - "docker-push"
+- id: apply-gke-custom
+  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentGkeCustom --stage apply --verbose']
+  secretEnv: ['TFE_TOKEN']
+  waitFor:
+    - "init-gke-custom"
+- id: verify-gke-custom
+  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentGkeCustom --stage verify --verbose']
+  secretEnv: ['TFE_TOKEN']
+  waitFor:
+    - "apply-gke-custom"
+- id: destroy-gke-custom
+  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentGkeCustom --stage destroy --verbose']
+  secretEnv: ['TFE_TOKEN']
+  waitFor:
+    - "verify-gke-custom"
 - id: init-gke-simple
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'cft test run TestTfcAgentGkeSimple --stage init --verbose']
@@ -117,6 +140,29 @@ steps:
   secretEnv: ['TFE_TOKEN']
   waitFor:
     - "verify-mig-con-simple"
+- id: init-mig-packer
+  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmPacker --stage init --verbose']
+  waitFor:
+    - "packer-build"
+- id: apply-mig-packer
+  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmPacker --stage apply --verbose']
+  secretEnv: ['TFE_TOKEN']
+  waitFor:
+    - "init-mig-packer"
+- id: verify-mig-packer
+  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmPacker --stage verify --verbose']
+  secretEnv: ['TFE_TOKEN']
+  waitFor:
+    - "apply-mig-packer"
+- id: destroy-mig-packer
+  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmPacker --stage destroy --verbose']
+  secretEnv: ['TFE_TOKEN']
+  waitFor:
+    - "verify-mig-packer"
 - id: init-mig-simple
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmSimple --stage init --verbose']
@@ -140,7 +186,6 @@ steps:
   secretEnv: ['TFE_TOKEN']
   waitFor:
     - "verify-mig-simple"
-# Add packer tests here that depend on "packer-build"
 tags:
 - 'ci'
 - 'integration'
