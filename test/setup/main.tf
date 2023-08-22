@@ -29,6 +29,8 @@ module "project" {
     "artifactregistry.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "compute.googleapis.com",
+    "container.googleapis.com",
+    "iam.googleapis.com",
     "serviceusage.googleapis.com",
     "secretmanager.googleapis.com",
     "storage-api.googleapis.com",
