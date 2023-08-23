@@ -19,6 +19,7 @@ package tfc_agent_mig_vm_packer
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/gcloud"
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/tft"
@@ -39,8 +40,8 @@ func TestTfcAgentMigVmPacker(t *testing.T) {
 		gcloudArgs := gcloud.WithCommonArgs([]string{"--project", projectId, "--region", region, "--format=json"})
 		op := gcloud.Run(t, fmt.Sprintf("compute instance-groups managed describe %s-mig", migName), gcloudArgs)
 
-		assert.Equal(op.Get("autoscaler.status").String(),"ACTIVE", "Autoscaler should have ACTIVE status")
-		assert.Equal(op.Get("status.isStable").String(),"true", "Instance group stability flag should be true")
+		assert.Equal(op.Get("autoscaler.status").String(), "ACTIVE", "Autoscaler should have ACTIVE status")
+		assert.Equal(op.Get("status.isStable").String(), "true", "Instance group stability flag should be true")
 		assert.Equal(op.Get("instanceGroup").String(), migInstanceGroup, "Instance group URL should match")
 	})
 
