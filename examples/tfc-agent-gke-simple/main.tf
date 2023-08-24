@@ -62,12 +62,21 @@ resource "tfe_agent_token" "tfc_agent_token" {
   description   = var.tfc_agent_pool_token_description
 }
 
+# Create a new service account for the GKE cluster
+resource "google_service_account" "tfc_agent_service_account" {
+  project      = var.project_id
+  account_id   = "tfc-agent-gke-simple"
+  display_name = "Terraform Cloud agent GKE Service Account"
+}
+
 # Create the infrastructure for the agent to run
 module "tfc_agent_gke" {
-  source          = "../../modules/tfc-agent-gke"
-  create_network  = true
-  network_name    = local.network_name
-  subnet_name     = local.network_name
-  project_id      = var.project_id
-  tfc_agent_token = tfe_agent_token.tfc_agent_token.token
+  source                 = "../../modules/tfc-agent-gke"
+  create_network         = true
+  network_name           = local.network_name
+  subnet_name            = local.network_name
+  project_id             = var.project_id
+  tfc_agent_token        = tfe_agent_token.tfc_agent_token.token
+  create_service_account = false
+  service_account_email  = google_service_account.tfc_agent_service_account.email
 }

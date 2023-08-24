@@ -106,9 +106,15 @@ variable "min_node_count" {
   default     = 2
 }
 
-variable "service_account" {
+variable "create_service_account" {
+  description = "Set to true to create a new service account, false to use an existing one"
+  type        = bool
+  default     = true
+}
+
+variable "service_account_email" {
   type        = string
-  description = "Optional Service Account for the GKE nodes"
+  description = "Optional Service Account for the GKE nodes, required if create_service_account is set to false"
   default     = ""
 }
 

@@ -26,6 +26,7 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 |------|-------------|------|---------|:--------:|
 | cooldown\_period | The number of seconds that the autoscaler should wait before it<br>starts collecting information from a new instance | `number` | `60` | no |
 | create\_network | When set to true, VPC, router and NAT will be auto created | `bool` | `true` | no |
+| create\_service\_account | Set to true to create a new service account, false to use an existing one | `bool` | `true` | no |
 | custom\_metadata | User provided custom metadata | `map(any)` | `{}` | no |
 | machine\_type | The GCP machine type to deploy | `string` | `"n1-standard-1"` | no |
 | max\_replicas | Maximum number of Terraform agent instances | `number` | `10` | no |
@@ -34,7 +35,7 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 | network\_project | The project ID of the shared VPCs host (for shared vpc support).<br>If not provided, the project\_id is used | `string` | `""` | no |
 | project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent | `string` | n/a | yes |
 | region | The GCP region to use when deploying resources | `string` | `"us-central1"` | no |
-| service\_account | Service account email address to use with the MIG template | `string` | `""` | no |
+| service\_account\_email | Service account email address to use with the MIG template, required if create\_service\_account is set to false | `string` | `""` | no |
 | source\_image | Source disk image. If neither source\_image nor source\_image\_family is specified,<br>defaults to the latest public CentOS image | `string` | `""` | no |
 | source\_image\_family | Source image family. If neither source\_image nor source\_image\_family<br>is specified, defaults to the latest public Ubuntu image | `string` | `"ubuntu-2204-lts"` | no |
 | source\_image\_project | Project where the source image originates | `string` | `"ubuntu-os-cloud"` | no |
@@ -48,7 +49,7 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 | tfc\_agent\_secret | The secret id for storing the Terraform Cloud agent secret | `string` | `"tfc-agent"` | no |
 | tfc\_agent\_single | Enable single mode. This causes the agent to handle at most one job and<br>immediately exit thereafter. Useful for running agents as ephemeral<br>containers, VMs, or other isolated contexts with a higher-level scheduler<br>or process supervisor | `bool` | `false` | no |
 | tfc\_agent\_token | Terraform Cloud agent token. (Organization Settings >> Agents) | `string` | n/a | yes |
-| tfc\_agent\_version | Terraform Cloud Agent version to install | `string` | `"1.10.1"` | no |
+| tfc\_agent\_version | Terraform Cloud Agent version to install | `string` | `"1.12.0"` | no |
 
 ## Outputs
 
@@ -58,7 +59,7 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 | mig\_instance\_template | The name of the MIG Instance Template |
 | mig\_name | The name of the MIG |
 | network\_name | Name of the VPC |
-| service\_account | Service account email used with the MIG template |
+| service\_account\_email | Service account email used with the MIG template |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

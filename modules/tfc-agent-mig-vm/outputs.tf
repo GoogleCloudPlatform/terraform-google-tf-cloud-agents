@@ -34,7 +34,7 @@ output "network_name" {
   value       = local.network_name
 }
 
-output "service_account" {
+output "service_account_email" {
   description = "Service account email used with the MIG template"
-  value       = local.service_account
+  value       = local.service_account_email
 }

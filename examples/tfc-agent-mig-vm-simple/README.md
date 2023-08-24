@@ -47,6 +47,6 @@ It creates the Terraform Cloud agent pool, registers the agent to that pool and 
 | mig\_instance\_template | The name of the MIG Instance Template |
 | mig\_name | The name of the MIG |
 | project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent MIG |
-| service\_account | Service account email used with the MIG template |
+| service\_account\_email | Service account email used with the MIG template |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

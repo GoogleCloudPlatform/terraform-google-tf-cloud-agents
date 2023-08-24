@@ -28,10 +28,10 @@ locals {
         path = "/var/run/docker.sock"
       }
   }] : []
-  network_name    = var.create_network ? google_compute_network.tfc_agent_network[0].self_link : var.network_name
-  subnet_name     = var.create_network ? google_compute_subnetwork.tfc_agent_subnetwork[0].self_link : var.subnet_name
-  service_account = var.service_account == "" ? google_service_account.tfc_agent_service_account[0].email : var.service_account
-  instance_name   = "${var.tfc_agent_name_prefix}-${random_string.suffix.result}"
+  network_name          = var.create_network ? google_compute_network.tfc_agent_network[0].self_link : var.network_name
+  subnet_name           = var.create_network ? google_compute_subnetwork.tfc_agent_subnetwork[0].self_link : var.subnet_name
+  service_account_email = var.create_service_account ? google_service_account.tfc_agent_service_account[0].email : var.service_account_email
+  instance_name         = "${var.tfc_agent_name_prefix}-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -83,20 +83,18 @@ resource "google_compute_router_nat" "nat" {
  *****************************************/
 
 resource "google_service_account" "tfc_agent_service_account" {
-  count        = var.service_account == "" ? 1 : 0
+  count        = var.create_service_account ? 1 : 0
   project      = var.project_id
   account_id   = "tfc-agent-mig-container-vm-sa"
   display_name = "Terrform agent GCE Service Account"
 }
 
 # allow GCE to pull images from GCR
-resource "google_project_iam_binding" "gce" {
-  count   = var.service_account == "" ? 1 : 0
+resource "google_project_iam_member" "gce" {
+  count   = var.create_service_account ? 1 : 0
   project = var.project_id
   role    = "roles/storage.objectViewer"
-  members = [
-    "serviceAccount:${local.service_account}",
-  ]
+  member  = "serviceAccount:${local.service_account_email}"
 }
 
 /*****************************************
@@ -165,7 +163,7 @@ module "mig_template" {
   subnetwork         = local.subnet_name
   subnetwork_project = var.subnetwork_project != "" ? var.subnetwork_project : var.project_id
   service_account = {
-    email = local.service_account
+    email = local.service_account_email
     scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
     ]

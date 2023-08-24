@@ -24,6 +24,7 @@ steps:
   - name: 'hashicorp/packer:1.9.1'
     args:
       - build
+      - --force
       - -var
       - project_id=$PROJECT_ID
       - -var

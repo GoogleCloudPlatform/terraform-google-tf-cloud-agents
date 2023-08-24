@@ -25,13 +25,14 @@ This example shows how to deploy a self hosted Terraform Cloud agent on MIG Cont
 | additional\_metadata | Additional metadata to attach to the instance | `map(any)` | `{}` | no |
 | cooldown\_period | The number of seconds that the autoscaler should wait before it<br>starts collecting information from a new instance. | `number` | `60` | no |
 | create\_network | When set to true, VPC, router and NAT will be auto created | `bool` | `true` | no |
+| create\_service\_account | Set to true to create a new service account, false to use an existing one | `bool` | `true` | no |
 | dind | Flag to determine whether to expose dockersock | `bool` | `false` | no |
 | image | The Terraform Cloud agent image | `string` | `"hashicorp/tfc-agent:latest"` | no |
 | network\_name | Name for the VPC network | `string` | `"tfc-agent-network"` | no |
 | project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent | `string` | n/a | yes |
 | region | The GCP region to use when deploying resources | `string` | `"us-central1"` | no |
 | restart\_policy | The desired Docker restart policy for the agent image | `string` | `"Always"` | no |
-| service\_account | Service account email address to assign roles and attach to MIG templates | `string` | `""` | no |
+| service\_account\_email | Service account email address to use with the MIG template, required if create\_service\_account is set to false | `string` | `""` | no |
 | startup\_script | User startup script to run when instances spin up | `string` | `""` | no |
 | subnet\_ip | IP range for the subnet | `string` | `"10.10.10.0/24"` | no |
 | subnet\_name | Name for the subnet | `string` | `"tfc-agent-subnet"` | no |
@@ -51,7 +52,7 @@ This example shows how to deploy a self hosted Terraform Cloud agent on MIG Cont
 | mig\_instance\_template | The name of the MIG Instance Template |
 | mig\_name | The name of the MIG |
 | network\_name | Name of the VPC |
-| service\_account | Service account email attached to MIG templates for GCE |
+| service\_account\_email | Service account email attached to MIG templates for GCE |
 | subnet\_name | Name of the subnet in the VPC |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

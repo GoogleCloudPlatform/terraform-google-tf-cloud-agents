@@ -15,10 +15,11 @@
  */
 
 locals {
-  network_name    = var.create_network ? google_compute_network.tfc_agent_network[0].self_link : var.network_name
-  service_account = var.service_account == "" ? google_service_account.tfc_agent_service_account[0].email : var.service_account
-  startup_script  = var.startup_script == "" ? file("${path.module}/scripts/startup.sh") : var.startup_script
-  instance_name   = "${var.tfc_agent_name_prefix}-${random_string.suffix.result}"
+  network_name          = var.create_network ? google_compute_network.tfc_agent_network[0].self_link : var.network_name
+  service_account_email = var.create_service_account ? google_service_account.tfc_agent_service_account[0].email : var.service_account_email
+  startup_script        = var.startup_script == "" ? file("${path.module}/scripts/startup.sh") : var.startup_script
+  instance_name         = "${var.tfc_agent_name_prefix}-${random_string.suffix.result}"
+  tfc_agent_secret      = "${var.tfc_agent_secret}-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -70,7 +71,7 @@ resource "google_compute_router_nat" "tfc_agent_nat" {
  *****************************************/
 
 resource "google_service_account" "tfc_agent_service_account" {
-  count        = var.service_account == "" ? 1 : 0
+  count        = var.create_service_account ? 1 : 0
   project      = var.project_id
   account_id   = "tfc-agent-mig-vm-sa"
   display_name = "Terraform Cloud agent GCE Service Account"
@@ -83,10 +84,10 @@ resource "google_service_account" "tfc_agent_service_account" {
 resource "google_secret_manager_secret" "tfc_agent_secret" {
   provider  = google-beta
   project   = var.project_id
-  secret_id = var.tfc_agent_secret
+  secret_id = local.tfc_agent_secret
 
   labels = {
-    label = var.tfc_agent_secret
+    label = local.tfc_agent_secret
   }
 
   replication {
@@ -117,7 +118,7 @@ resource "google_secret_manager_secret_iam_member" "tfc_agent_secret_member" {
   project   = var.project_id
   secret_id = google_secret_manager_secret.tfc_agent_secret.id
   role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:${local.service_account}"
+  member    = "serviceAccount:${local.service_account_email}"
 }
 
 /*****************************************
@@ -134,7 +135,7 @@ module "mig_template" {
   region             = var.region
   subnetwork_project = var.network_project != "" ? var.network_project : var.project_id
   service_account = {
-    email = local.service_account
+    email = local.service_account_email
     scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
     ]

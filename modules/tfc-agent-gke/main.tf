@@ -15,10 +15,10 @@
  */
 
 locals {
-  network_name    = var.create_network ? google_compute_network.tfc_agent_network[0].name : var.network_name
-  subnet_name     = var.create_network ? google_compute_subnetwork.tfc_agent_subnetwork[0].name : var.subnet_name
-  service_account = var.service_account == "" ? "create" : var.service_account
-  tfc_agent_name  = "${var.tfc_agent_name_prefix}-${random_string.suffix.result}"
+  network_name          = var.create_network ? google_compute_network.tfc_agent_network[0].name : var.network_name
+  subnet_name           = var.create_network ? google_compute_subnetwork.tfc_agent_subnetwork[0].name : var.subnet_name
+  service_account_email = var.create_service_account ? google_service_account.tfc_agent_service_account[0].email : var.service_account_email
+  tfc_agent_name        = "${var.tfc_agent_name_prefix}-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -57,6 +57,17 @@ resource "google_compute_subnetwork" "tfc_agent_subnetwork" {
 }
 
 /*****************************************
+  IAM Bindings GKE
+ *****************************************/
+
+resource "google_service_account" "tfc_agent_service_account" {
+  count        = var.create_service_account ? 1 : 0
+  project      = var.project_id
+  account_id   = "tfc-agent-gke"
+  display_name = "Terraform Cloud agent GKE Service Account"
+}
+
+/*****************************************
   TFC agent GKE
  *****************************************/
 
@@ -69,7 +80,7 @@ module "tfc_agent_cluster" {
   network                  = local.network_name
   name                     = local.tfc_agent_name
   subnetwork               = local.subnet_name
-  service_account          = local.service_account
+  service_account          = local.service_account_email
   network_project_id       = var.network_project_id != "" ? var.network_project_id : var.project_id
   ip_range_pods            = var.ip_range_pods_name
   ip_range_services        = var.ip_range_services_name

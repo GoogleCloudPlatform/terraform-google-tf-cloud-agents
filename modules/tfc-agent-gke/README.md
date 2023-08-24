@@ -25,6 +25,7 @@ This example shows how to deploy a custom Terraform Cloud agent image with GKE.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | create\_network | When set to true, VPC will be auto created | `bool` | `true` | no |
+| create\_service\_account | Set to true to create a new service account, false to use an existing one | `bool` | `true` | no |
 | ip\_range\_pods\_cidr | The secondary IP range CIDR to use for pods | `string` | `"192.168.0.0/18"` | no |
 | ip\_range\_pods\_name | The secondary IP range to use for pods | `string` | `"ip-range-pods"` | no |
 | ip\_range\_services\_cider | The secondary IP range CIDR to use for services | `string` | `"192.168.64.0/18"` | no |
@@ -36,7 +37,7 @@ This example shows how to deploy a custom Terraform Cloud agent image with GKE.
 | network\_project\_id | The project ID of the shared VPCs host (for shared vpc support).<br>If not provided, the project\_id is used | `string` | `""` | no |
 | project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent cluster | `string` | n/a | yes |
 | region | The GCP region to use when deploying resources | `string` | `"us-central1"` | no |
-| service\_account | Optional Service Account for the GKE nodes | `string` | `""` | no |
+| service\_account\_email | Optional Service Account for the GKE nodes, required if create\_service\_account is set to false | `string` | `""` | no |
 | subnet\_ip | IP range for the subnet | `string` | `"10.0.0.0/17"` | no |
 | subnet\_name | Name for the subnet | `string` | `"tfc-agent-subnet"` | no |
 | tfc\_agent\_address | The HTTP or HTTPS address of the Terraform Cloud/Enterprise API | `string` | `"https://app.terraform.io"` | no |

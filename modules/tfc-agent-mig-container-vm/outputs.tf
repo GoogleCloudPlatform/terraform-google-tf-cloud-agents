@@ -39,7 +39,7 @@ output "subnet_name" {
   value       = local.subnet_name
 }
 
-output "service_account" {
+output "service_account_email" {
   description = "Service account email attached to MIG templates for GCE"
-  value       = local.service_account
+  value       = local.service_account_email
 }
