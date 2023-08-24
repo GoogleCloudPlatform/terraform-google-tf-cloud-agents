@@ -37,6 +37,7 @@ func TestTfcAgentMigVmPacker(t *testing.T) {
 		migName := bpt.GetStringOutput("mig_name")
 		migInstanceGroup := bpt.GetStringOutput("mig_instance_group")
 
+		time.Sleep(120 * time.Second)
 		gcloudArgs := gcloud.WithCommonArgs([]string{"--project", projectId, "--region", region, "--format=json"})
 		op := gcloud.Run(t, fmt.Sprintf("compute instance-groups managed describe %s-mig", migName), gcloudArgs)
 

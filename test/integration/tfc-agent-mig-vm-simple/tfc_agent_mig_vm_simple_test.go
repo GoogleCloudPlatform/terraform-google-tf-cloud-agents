@@ -37,11 +37,12 @@ func TestTfcAgentMigVmSimple(t *testing.T) {
 		migName := bpt.GetStringOutput("mig_name")
 		migInstanceGroup := bpt.GetStringOutput("mig_instance_group")
 
+		time.Sleep(120 * time.Second)
 		gcloudArgs := gcloud.WithCommonArgs([]string{"--project", projectId, "--region", region, "--format=json"})
 		op := gcloud.Run(t, fmt.Sprintf("compute instance-groups managed describe %s-mig", migName), gcloudArgs)
 
-		assert.Equal(op.Get("autoscaler.status").String(),"ACTIVE", "Autoscaler should have ACTIVE status")
-		assert.Equal(op.Get("status.isStable").String(),"true", "Instance group stability flag should be true")
+		assert.Equal(op.Get("autoscaler.status").String(), "ACTIVE", "Autoscaler should have ACTIVE status")
+		assert.Equal(op.Get("status.isStable").String(), "true", "Instance group stability flag should be true")
 		assert.Equal(op.Get("instanceGroup").String(), migInstanceGroup, "Instance group URL should match")
 	})
 
