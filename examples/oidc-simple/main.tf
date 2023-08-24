@@ -19,6 +19,11 @@ data "tfe_organization" "tfc_org" {
   name = var.tfc_org_name
 }
 
+locals {
+  tfc_project   = "${var.tfc_project_name} ${random_string.suffix.result}"
+  tfc_workspace = "${var.tfc_workspace_name}-${random_string.suffix.result}"
+}
+
 # Random ID for the workload_identity_pool_id
 # will avoid errors due to GCP's 30-day hold on deleted pools
 resource "random_string" "suffix" {
@@ -29,13 +34,13 @@ resource "random_string" "suffix" {
 
 # Create a new project in Terraform Cloud
 resource "tfe_project" "tfc_project" {
+  name         = local.tfc_project
   organization = data.tfe_organization.tfc_org.name
-  name         = var.tfc_project_name
 }
 
 # Create a new workspace which uses the agent to run Terraform
 resource "tfe_workspace" "tfc_workspace" {
-  name         = var.tfc_workspace_name
+  name         = local.tfc_workspace
   organization = data.tfe_organization.tfc_org.name
   project_id   = tfe_project.tfc_project.id
 }

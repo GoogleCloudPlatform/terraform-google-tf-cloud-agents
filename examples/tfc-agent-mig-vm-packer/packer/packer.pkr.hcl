@@ -77,6 +77,12 @@ variable "ssh_username" {
   default     = "ubuntu"
 }
 
+variable "tfc_agent_image" {
+  type        = string
+  description = "The name of the Terraform Cloud image to use"
+  default     = "tfc-agent-image"
+}
+
 variable "tfc_agent_version" {
   type        = string
   description = "Version of the Terraform Cloud agent to install in the image"
@@ -89,11 +95,6 @@ variable "zone" {
   default     = "us-central1-a"
 }
 
-locals {
-  timestamp  = regex_replace(timestamp(), "[- TZ:]", "")
-  image_name = "tfc-agent-image-${local.timestamp}"
-}
-
 source "googlecompute" "agent" {
   project_id              = var.project_id
   source_image_family     = var.source_image_family
@@ -103,9 +104,8 @@ source "googlecompute" "agent" {
   disk_size               = var.disk_size
   disk_type               = var.disk_type
   ssh_username            = var.ssh_username
-  image_name              = local.image_name
+  image_name              = var.tfc_agent_image
   image_family            = var.image_family
-  use_os_login            = true
 
   disable_default_service_account = false
 }
@@ -120,32 +120,10 @@ build {
       "apt-get update",
       "apt-get dist-upgrade -q -y",
       "apt-get update",
-      "apt-get install -q -y apt-transport-https ca-certificates curl unzip tar jq build-essential gnupg2 software-properties-common",
-      "install -m 0755 -d /etc/apt/keyrings",
-      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg",
-      "chmod a+r /etc/apt/keyrings/docker.gpg",
-      "echo \"deb [arch=\"$(dpkg --print-architecture)\" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \"$(. /etc/os-release && echo \"$VERSION_CODENAME\")\" stable\" | tee /etc/apt/sources.list.d/docker.list > /dev/null",
-      "apt-get update",
-      "apt-get install -y docker-ce",
-      "usermod -aG docker ubuntu"
-    ]
-  }
-
-  provisioner "shell" {
-    environment_vars = ["DEBIAN_FRONTEND=noninteractive"]
-    execute_command  = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-    inline = [
+      "apt-get install -q -y apt-transport-https ca-certificates curl unzip",
       "curl -s -O https://releases.hashicorp.com/tfc-agent/${var.tfc_agent_version}/tfc-agent_${var.tfc_agent_version}_linux_amd64.zip",
-      "curl -s -O https://releases.hashicorp.com/tfc-agent/${var.tfc_agent_version}/tfc-agent_${var.tfc_agent_version}_SHA256SUMS",
-      "curl -s -O https://releases.hashicorp.com/tfc-agent/${var.tfc_agent_version}/tfc-agent_${var.tfc_agent_version}_SHA256SUMS.sig",
-      "curl -s -o hashicorp.asc https://www.hashicorp.com/.well-known/pgp-key.txt",
-      "gpg --import hashicorp.asc",
-      "gpg --verify tfc-agent_${var.tfc_agent_version}_SHA256SUMS.sig tfc-agent_${var.tfc_agent_version}_SHA256SUMS",
-      "shasum -a 256 -c tfc-agent_${var.tfc_agent_version}_SHA256SUMS",
       "mkdir /agent",
       "unzip tfc-agent_${var.tfc_agent_version}_linux_amd64.zip -d /agent",
-      "rm tfc-agent_${var.tfc_agent_version}_SHA256SUMS",
-      "rm tfc-agent_${var.tfc_agent_version}_SHA256SUMS.sig",
       "rm -f tfc-agent_${var.tfc_agent_version}_linux_amd64.zip"
     ]
   }

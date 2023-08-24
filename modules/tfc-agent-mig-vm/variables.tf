@@ -70,9 +70,15 @@ variable "max_replicas" {
   default     = 10
 }
 
-variable "service_account" {
+variable "create_service_account" {
+  description = "Set to true to create a new service account, false to use an existing one"
+  type        = bool
+  default     = true
+}
+
+variable "service_account_email" {
   type        = string
-  description = "Service account email address to use with the MIG template"
+  description = "Service account email address to use with the MIG template, required if create_service_account is set to false"
   default     = ""
 }
 
@@ -127,6 +133,12 @@ variable "cooldown_period" {
   default     = 60
 }
 
+variable "tfc_agent_secret" {
+  type        = string
+  description = "The secret id for storing the Terraform Cloud agent secret"
+  default     = "tfc-agent"
+}
+
 variable "tfc_agent_address" {
   type        = string
   description = "The HTTP or HTTPS address of the Terraform Cloud/Enterprise API"
@@ -171,7 +183,7 @@ variable "tfc_agent_labels" {
 variable "tfc_agent_version" {
   type        = string
   description = "Terraform Cloud Agent version to install"
-  default     = "1.10.1"
+  default     = "1.12.0"
 }
 
 variable "tfc_agent_token" {

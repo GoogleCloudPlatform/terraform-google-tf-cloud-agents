@@ -18,15 +18,40 @@ module "project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 14.0"
 
-  name              = "ci-tf-cloud-agents"
-  random_project_id = "true"
-  org_id            = var.org_id
-  folder_id         = var.folder_id
-  billing_account   = var.billing_account
+  name                = "ci-tf-cloud-agents"
+  random_project_id   = "true"
+  org_id              = var.org_id
+  folder_id           = var.folder_id
+  billing_account     = var.billing_account
+  auto_create_network = true
 
   activate_apis = [
+    "artifactregistry.googleapis.com",
     "cloudresourcemanager.googleapis.com",
+    "compute.googleapis.com",
+    "container.googleapis.com",
+    "iam.googleapis.com",
+    "serviceusage.googleapis.com",
+    "secretmanager.googleapis.com",
     "storage-api.googleapis.com",
-    "serviceusage.googleapis.com"
   ]
+}
+
+data "tfe_organization" "tfc_org" {
+  name = var.tfc_org_name
+}
+
+resource "google_artifact_registry_repository" "hashicorp" {
+  project       = module.project.project_id
+  location      = "us-central1"
+  repository_id = "hashicorp"
+  description   = "HashiCorp Docker repository"
+  format        = "DOCKER"
+}
+
+resource "local_file" "env_file" {
+  filename = "${path.module}/outputs.env"
+  content  = <<EOT
+_SETUP_PROJECT_ID=${module.project.project_id}
+EOT
 }

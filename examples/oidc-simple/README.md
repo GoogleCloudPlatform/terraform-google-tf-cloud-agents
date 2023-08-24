@@ -20,6 +20,7 @@ This example showcases how to configure [Workload Identity Federation](https://c
 | Name | Description |
 |------|-------------|
 | pool\_name | Pool name |
+| project\_id | The project id to create Workload Identity Federation pool and example Service Account |
 | provider\_name | Provider name |
 | sa\_email | Example SA email |
 

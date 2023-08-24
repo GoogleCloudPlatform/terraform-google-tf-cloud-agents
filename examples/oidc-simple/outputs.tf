@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+output "project_id" {
+  description = "The project id to create Workload Identity Federation pool and example Service Account"
+  value       = var.project_id
+}
+
 output "pool_name" {
   description = "Pool name"
   value       = module.oidc.pool_name

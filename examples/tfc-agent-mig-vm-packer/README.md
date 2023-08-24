@@ -20,7 +20,7 @@ In this example, Packer creates a VM image that has the following:
    ```sh
    # Export required variables
    export PROJECT_ID="your_gcp_project_id"
-   export TFC_AGENT_VERSION="1.10.1"
+   export TFC_AGENT_VERSION="1.12.0"
 
    # GCP commands to enable services
    gcloud config set project $PROJECT_ID
@@ -73,7 +73,7 @@ In this example, Packer creates a VM image that has the following:
 | tfc\_agent\_pool\_name | Terraform Cloud agent pool name to be created | `string` | `"tfc-agent-mig-vm-packer-pool"` | no |
 | tfc\_agent\_pool\_token\_description | Terraform Cloud agent pool token description | `string` | `"tfc-agent-mig-vm-packer-pool-token"` | no |
 | tfc\_org\_name | Terraform Cloud org name where the agent pool will be created | `string` | n/a | yes |
-| tfc\_project\_name | Terraform Cloud project name to be created | `string` | `"GCP agents custom VM"` | no |
+| tfc\_project\_name | Terraform Cloud project name to be created | `string` | `"GCP agents Packer"` | no |
 | tfc\_workspace\_name | Terraform Cloud workspace name to be created | `string` | `"tfc-agent-mig-vm-packer"` | no |
 
 ## Outputs
@@ -83,6 +83,7 @@ In this example, Packer creates a VM image that has the following:
 | mig\_instance\_group | The instance group url of the created MIG |
 | mig\_instance\_template | The name of the MIG Instance Template |
 | mig\_name | The name of the MIG |
-| service\_account | Service account email for GCE used with the MIG template |
+| project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent MIG |
+| service\_account\_email | Service account email for GCE used with the MIG template |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

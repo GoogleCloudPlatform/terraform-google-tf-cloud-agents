@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+output "project_id" {
+  description = "The Google Cloud Platform project ID to deploy Terraform Cloud agent MIG"
+  value       = var.project_id
+}
+
 output "mig_instance_group" {
   description = "The instance group url of the created MIG"
   value       = module.tfc_agent_mig.mig_instance_group
@@ -24,9 +29,9 @@ output "mig_name" {
   value       = module.tfc_agent_mig.mig_name
 }
 
-output "service_account" {
+output "service_account_email" {
   description = "Service account email for GCE used with the MIG template"
-  value       = module.tfc_agent_mig.service_account
+  value       = module.tfc_agent_mig.service_account_email
 }
 
 output "mig_instance_template" {

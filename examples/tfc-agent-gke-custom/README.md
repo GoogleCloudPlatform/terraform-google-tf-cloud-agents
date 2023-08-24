@@ -79,7 +79,7 @@ If running from your own system, you will need:
 | tfc\_agent\_pool\_name | Terraform Cloud agent pool name to be created | `string` | `"tfc-agent-gke-custom-pool"` | no |
 | tfc\_agent\_pool\_token\_description | Terraform Cloud agent pool token description | `string` | `"tfc-agent-gke-custom-pool-token"` | no |
 | tfc\_org\_name | Terraform Cloud org name where the agent pool will be created | `string` | n/a | yes |
-| tfc\_project\_name | Terraform Cloud project name to be created | `string` | `"GCP agents GKE"` | no |
+| tfc\_project\_name | Terraform Cloud project name to be created | `string` | `"GCP agents GKE custom"` | no |
 | tfc\_workspace\_name | Terraform Cloud workspace name to be created | `string` | `"tfc-agent-gke-custom"` | no |
 
 ## Outputs
@@ -87,11 +87,11 @@ If running from your own system, you will need:
 | Name | Description |
 |------|-------------|
 | ca\_certificate | The cluster CA certificate (base64 encoded) |
-| client\_token | The bearer token for auth |
 | cluster\_name | GKE cluster name |
 | kubernetes\_endpoint | The cluster endpoint |
 | location | GKE cluster location |
 | network\_name | Name of the VPC |
+| project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent cluster |
 | service\_account | The default service account used for TFC agent nodes |
 | subnet\_name | Name of the subnet in the VPC |
 

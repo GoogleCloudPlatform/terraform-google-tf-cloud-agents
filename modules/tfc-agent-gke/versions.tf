@@ -38,3 +38,11 @@ terraform {
     module_name = "blueprints/terraform/terraform-google-tf-cloud-agents:tfc-agent-gke/v0.0.1"
   }
 }
+
+provider "kubernetes" {
+  host  = "https://${module.tfc_agent_cluster.endpoint}"
+  token = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(
+    module.tfc_agent_cluster.ca_certificate
+  )
+}
