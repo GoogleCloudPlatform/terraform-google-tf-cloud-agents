@@ -88,6 +88,7 @@ module "tfc_agent_cluster" {
   monitoring_service       = "monitoring.googleapis.com/kubernetes"
   remove_default_node_pool = true
   regional                 = false
+  gce_pd_csi_driver        = true
   node_pools = [
     {
       name         = "tfc-agent-pool"
