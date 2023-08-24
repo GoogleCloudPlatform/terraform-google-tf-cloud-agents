@@ -154,6 +154,11 @@ module "mig_template" {
   tags = [
     local.instance_name
   ]
+
+  depends_on = [
+    google_compute_network.tfc_agent_network,
+    google_compute_subnetwork.tfc_agent_subnetwork,
+  ]
 }
 
 /*****************************************
