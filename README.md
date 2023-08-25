@@ -1,10 +1,10 @@
 # terraform-google-terraform-cloud-agents
 
-Creates self hosted Terraform Cloud Agents on Google Cloud. Using these Terraform modules you can quickly deploy agent pools for your Terraform Cloud workflows.
+Creates self hosted Terraform Cloud agents on Google Cloud. Using these Terraform modules you can quickly deploy agent pools for your Terraform Cloud workflows.
 
-## [Terraform Cloud Agents on GKE](modules/tfc-agent-gke/README.md)
+## [Terraform Cloud agents on GKE](modules/tfc-agent-gke/README.md)
 
-The `tfc-agent-gke` module provisions the resources required to deploy self hosted Terraform Cloud Agents on Google Cloud infrastructure using Google Kubernetes Engine (GKE).
+The `tfc-agent-gke` module provisions the resources required to deploy self hosted Terraform Cloud agents on Google Cloud infrastructure using Google Kubernetes Engine (GKE).
 
 This includes
 
@@ -15,11 +15,12 @@ This includes
 
 *Below are some examples:*
 
-- [Terraform Cloud Agents on GKE](examples/tfc-agent-gke-simple/README.md) - This example shows how to deploy a simple GKE self hosted Terraform Cloud Agent.
+- [Terraform Cloud agents on GKE](examples/tfc-agent-gke-simple/README.md) - This example shows how to deploy the Terraform Cloud agent on GKE.
+- [Terraform Cloud agents on GKE with a custom image](examples/tfc-agent-gke-custom/README.md) - This example shows how to deploy a custom built Terraform Cloud agent image on GKE.
 
-## [Terraform Cloud Agents on Managed Instance Groups using VMs](modules/tfc-agent-mig-vm/README.md)
+## [Terraform Cloud agents on Managed Instance Groups using VMs](modules/tfc-agent-mig-vm/README.md)
 
-The `tfc-agent-mig-vm` module provisions the resources required to deploy Terrform Cloud Agent on Google Cloud infrastructure using Managed Instance Groups.
+The `tfc-agent-mig-vm` module provisions the resources required to deploy Terrform Cloud agent on Google Cloud infrastructure using Managed Instance Groups (MIG).
 
 This includes
 
@@ -36,11 +37,12 @@ Deployment of Managed Instance Groups requires a [Google VM image](https://cloud
 
 *Below are some examples:*
 
-- [Terraform Cloud Agents on MIG VMs](examples/tfc-agent-mig-native-simple/README.md) - This example shows how to deploy a MIG Terraform Cloud Agent with startup scripts.
+- [Terraform Cloud agents on MIG VMs](examples/tfc-agent-mig-vm-simple/README.md) - This example shows how to deploy the Terraform Cloud agent on MIG with startup scripts.
+- [Terraform Cloud agents on MIG VMs from Packer image](examples/tfc-agent-mig-vm-packer/README.md) - This example shows how to deploy the Terraform Cloud agent with an image pre-baked using Packer.
 
-## [Terraform Cloud Agents Instance Groups using Container VMs](modules/tfc-agent-mig-container-vm/README.md)
+## [Terraform Cloud agents Instance Groups using Container VMs](modules/tfc-agent-mig-container-vm/README.md)
 
-The `tfc-agent-mig-container-vm` module provisions the resources required to deploy Terraform Cloud Agents on Google Cloud infrastructure using Managed Instance Groups and Container VMs.
+The `tfc-agent-mig-container-vm` module provisions the resources required to deploy Terraform Cloud agents on Google Cloud infrastructure using Managed Instance Groups and Container VMs.
 
 This includes
 
@@ -53,7 +55,22 @@ This includes
 
 *Below are some examples:*
 
-- [Terraform Cloud Agents on MIG Container VMs](examples/tfc-agent-mig-container-vm-simple/README.md) - This example shows how to deploy a Terraform Cloud Agent on MIG Container VMs.
+- [Terraform Cloud agents on MIG Container VMs](examples/tfc-agent-mig-container-vm-simple/README.md) - This example shows how to deploy a Terraform Cloud agent on MIG Container VMs.
+
+## [Terraform Cloud OIDC (Dynamic Credentials)](modules/tfc-oidc/README.md)
+
+The `tfc-oidc` module handles the opinionated creation of infrastructure necessary to configure [Workload Identity pools](https://cloud.google.com/iam/docs/workload-identity-federation#pools) and [providers](https://cloud.google.com/iam/docs/workload-identity-federation#providers) for authenticating to GCP using [Terraform Cloud Dynamic Credentials](https://developer.hashicorp.com/terraform/cloud-docs/workspaces/dynamic-provider-credentials/gcp-configuration).
+
+This includes
+
+- Enabling necessary APIs
+- Creation of a Workload Identity pool
+- Configuring a Workload Identity provider
+- Granting external identities necessary IAM roles on Service Accounts
+
+*Below are some examples:*
+
+- [OIDC Simple](examples/oidc-simple/README.md) - This example shows how to use this module along with a Service Account to access storage buckets.
 
 ## Requirements
 
@@ -61,10 +78,14 @@ These sections describe requirements for using this module.
 
 ### Software
 
-The following dependencies must be available:
+The following dependencies might be required based on the module being used:
 
-- [Terraform][terraform] v0.13
+- [Terraform CLI][terraform-cli]
 - [Terraform Provider for GCP][terraform-provider-gcp]
+- [Terraform Provider for GCP beta][terraform-provider-gcp-beta]
+- [Google Cloud CLI][gcloud-cli]
+- [Kubernetes Provider][k8s-provider]
+- [Random Provider][random-provider]
 
 ## Contributing
 
@@ -74,7 +95,11 @@ information on contributing to this module.
 [iam-module]: https://registry.terraform.io/modules/terraform-google-modules/iam/google
 [project-factory-module]: https://registry.terraform.io/modules/terraform-google-modules/project-factory/google
 [terraform-provider-gcp]: https://www.terraform.io/docs/providers/google/index.html
-[terraform]: https://www.terraform.io/downloads.html
+[terraform-provider-gcp-beta]: https://registry.terraform.io/providers/hashicorp/google-beta/latest
+[terraform-cli]: https://www.terraform.io/downloads.html
+[gcloud-cli]: https://cloud.google.com/sdk/gcloud
+[k8s-provider]: https://registry.terraform.io/providers/hashicorp/kubernetes/latest
+[random-provider]: https://registry.terraform.io/providers/hashicorp/random/latest
 
 ## Security Disclosures
 

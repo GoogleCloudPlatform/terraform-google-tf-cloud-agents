@@ -1,8 +1,8 @@
-# Simple Self Hosted Terraform Cloud agent on GKE
+# Custom Self Hosted Terraform Cloud agent on GKE
 
 ## Overview
 
-This example shows how to deploy Terraform Cloud agents on Google Kubernetes Engine (GKE) using the `tfc-agent-gke` module.
+This example shows how to deploy a custom Terraform Cloud agent image on Google Kubernetes Engine (GKE) using the `tfc-agent-gke` module.
 
 It creates the Terraform Cloud agent pool, registers the agent to that pool and creates a project and an empty workspace with the agent attached.
 

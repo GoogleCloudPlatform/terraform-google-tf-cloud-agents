@@ -179,12 +179,12 @@ variable "tfc_agent_token" {
 
 variable "tfc_agent_min_replicas" {
   type        = string
-  description = "Minimum replicas for the Terraform Cloud Agent pod autoscaler"
+  description = "Minimum replicas for the Terraform Cloud agent pod autoscaler"
   default     = "1"
 }
 
 variable "tfc_agent_max_replicas" {
   type        = string
-  description = "Maximum replicas for the Terraform Cloud Agent pod autoscaler"
+  description = "Maximum replicas for the Terraform Cloud agent pod autoscaler"
   default     = "10"
 }
