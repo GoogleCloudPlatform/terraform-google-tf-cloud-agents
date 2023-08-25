@@ -1,8 +1,8 @@
-# Example Terraform Cloud Agent that support Docker Workflows
+# Example Terraform Cloud agent from Packer image
 
 ## Overview
 
-This example showcases how to use Packer to pre-bake a Google VM Image with the necessary toolchain including Terraform Cloud Agent and deploy this image using the `tfc-agent-mig` module.
+This example showcases how to use Packer to pre-bake a Google VM Image with the necessary toolchain including Terraform Cloud agent and deploy this image using the `tfc-agent-mig` module.
 
 We use startup script to register the runner when it comes online.
 
@@ -10,8 +10,7 @@ In this example, Packer creates a VM image that has the following:
 
 - curl
 - jq
-- Docker
-- Terraform Cloud Agent
+- Terraform Cloud agent
 
 ## Steps to deploy this example
 
@@ -58,9 +57,9 @@ In this example, Packer creates a VM image that has the following:
    terraform apply
    ```
 
-1. Your Terraform Cloud Agents should become active at Organization Setting > Security > Agents.
+1. Your Terraform Cloud agents should become active at Organization Setting > Security > Agents.
 
-1. Create additonal workspaces or use the existing workspace to run Terraform through the Terraform Cloud Agent.[Click here for more info on running the workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace_run#example-usage).
+1. Create additonal workspaces or use the existing workspace to run Terraform through the Terraform Cloud agent.[Click here for more info on running the workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace_run#example-usage).
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs

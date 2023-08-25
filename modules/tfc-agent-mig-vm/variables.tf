@@ -182,7 +182,7 @@ variable "tfc_agent_labels" {
 
 variable "tfc_agent_version" {
   type        = string
-  description = "Terraform Cloud Agent version to install"
+  description = "Terraform Cloud agent version to install"
   default     = "1.12.0"
 }
 
