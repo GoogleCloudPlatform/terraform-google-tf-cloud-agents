@@ -159,7 +159,7 @@ module "mig_template" {
   version            = "~> 7.0"
   region             = var.region
   project_id         = var.project_id
-  network            = local.network_name
+  network            = local.network_name == "" ? null : local.network_name 
   subnetwork         = local.subnet_name
   subnetwork_project = var.subnetwork_project != "" ? var.subnetwork_project : var.project_id
   service_account = {
