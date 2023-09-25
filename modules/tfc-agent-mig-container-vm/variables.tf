@@ -28,7 +28,7 @@ variable "region" {
 variable "create_network" {
   type        = bool
   description = "When set to true, VPC, router and NAT will be auto created"
-  default     = false
+  default     = true
 }
 
 variable "network_name" {
