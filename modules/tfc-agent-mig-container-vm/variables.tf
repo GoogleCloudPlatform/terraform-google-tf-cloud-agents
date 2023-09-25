@@ -33,7 +33,7 @@ variable "create_network" {
 
 variable "network_name" {
   type        = string
-  description = "Name for the VPC network"
+  description = "Name for the VPC network. Only used if subnetwork_project and subnet_name are not specified"
   default     = "tfc-agent-network"
 }
 
@@ -74,6 +74,12 @@ variable "target_size" {
   type        = number
   description = "The number of Terraform Cloud agent instances"
   default     = 2
+}
+
+variable "autoscaling_enabled" {
+  description = "Set to true to enable autoscaling in the MIG"
+  type        = bool
+  default     = true
 }
 
 variable "create_service_account" {
