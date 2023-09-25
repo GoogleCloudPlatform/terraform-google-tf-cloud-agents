@@ -28,13 +28,12 @@ variable "region" {
 variable "create_network" {
   type        = bool
   description = "When set to true, VPC, router and NAT will be auto created"
-  default     = true
+  default     = false
 }
 
 variable "network_name" {
   type        = string
   description = "Name for the VPC network"
-  default     = "tfc-agent-network"
 }
 
 variable "subnetwork_project" {
