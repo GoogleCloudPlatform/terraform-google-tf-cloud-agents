@@ -75,6 +75,12 @@ variable "target_size" {
   default     = 2
 }
 
+variable "autoscaling_enabled" {
+  description = "Set to true to enable autoscaling in the MIG"
+  type        = bool
+  default     = true
+}
+
 variable "create_service_account" {
   description = "Set to true to create a new service account, false to use an existing one"
   type        = bool
