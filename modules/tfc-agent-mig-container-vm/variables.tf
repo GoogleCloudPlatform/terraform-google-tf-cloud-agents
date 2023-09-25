@@ -33,7 +33,8 @@ variable "create_network" {
 
 variable "network_name" {
   type        = string
-  description = "Name for the VPC network. Set to null if you are specifying subnetwork_project and subnet_name for Shared VPC, as in this case this attribute is optional"
+  description = "Name for the VPC network. Only used if subnetwork_project and subnet_name are not specified"
+  default     = "tfc-agent-network"
 }
 
 variable "subnetwork_project" {
