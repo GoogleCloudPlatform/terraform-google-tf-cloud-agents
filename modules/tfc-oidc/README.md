@@ -12,7 +12,7 @@ This includes:
 
 ```terraform
 module "tfc_oidc" {
-  source      = "terraform-google-modules/terraform-cloud-agents/google//modules/tfc-oidc"
+  source      = "GoogleCloudPlatform/tf-cloud-agents/google//modules/tfc-oidc"
   project_id  = var.project_id
   pool_id     = "example-pool"
   provider_id = "example-tfc-provider"
