@@ -20,10 +20,11 @@ module "tfc_oidc" {
     "foo-service-account" = {
       sa_name   = "projects/my-project/serviceAccounts/foo-service-account@my-project.iam.gserviceaccount.com"
       sa_email  = "foo-service-account@my-project.iam.gserviceaccount.com"
-      attribute = "attribute.repository/${USER/ORG}/<repo>"
+      attribute = "*"
     }
   }
   tfc_organization_name = "example-tfc-organization"
+  tfc_project_name = "example-tfc-project"
   tfc_workspace_name = "example-tfc-workspace-name"
 }
 ```
