@@ -28,7 +28,7 @@ locals {
         path = "/var/run/docker.sock"
       }
   }] : []
-  network_name          = var.create_network ? google_compute_network.tfc_agent_network[0].self_link : ( var.subnet_name != "" ? null : var.network_name)
+  network_name          = var.create_network ? google_compute_network.tfc_agent_network[0].self_link : (var.subnet_name != "" ? null : var.network_name)
   subnet_name           = var.create_network ? google_compute_subnetwork.tfc_agent_subnetwork[0].self_link : var.subnet_name
   service_account_email = var.create_service_account ? google_service_account.tfc_agent_service_account[0].email : var.service_account_email
   instance_name         = "${var.tfc_agent_name_prefix}-${random_string.suffix.result}"
