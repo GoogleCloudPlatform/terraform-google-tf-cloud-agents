@@ -23,12 +23,13 @@ This example shows how to deploy a self hosted Terraform Cloud agent on MIG Cont
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | additional\_metadata | Additional metadata to attach to the instance | `map(any)` | `{}` | no |
+| autoscaling\_enabled | Set to true to enable autoscaling in the MIG | `bool` | `true` | no |
 | cooldown\_period | The number of seconds that the autoscaler should wait before it<br>starts collecting information from a new instance. | `number` | `60` | no |
 | create\_network | When set to true, VPC, router and NAT will be auto created | `bool` | `true` | no |
 | create\_service\_account | Set to true to create a new service account, false to use an existing one | `bool` | `true` | no |
 | dind | Flag to determine whether to expose dockersock | `bool` | `false` | no |
 | image | The Terraform Cloud agent image | `string` | `"hashicorp/tfc-agent:latest"` | no |
-| network\_name | Name for the VPC network | `string` | `"tfc-agent-network"` | no |
+| network\_name | Name for the VPC network. Only used if subnetwork\_project and subnet\_name are not specified | `string` | `"tfc-agent-network"` | no |
 | project\_id | The Google Cloud Platform project ID to deploy Terraform Cloud agent | `string` | n/a | yes |
 | region | The GCP region to use when deploying resources | `string` | `"us-central1"` | no |
 | restart\_policy | The desired Docker restart policy for the agent image | `string` | `"Always"` | no |
