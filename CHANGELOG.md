@@ -8,6 +8,14 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.1.1](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/compare/v0.1.0...v0.1.1) (2023-10-26)
+
+
+### Bug Fixes
+
+* README.md for OIDC module ([#12](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/12)) ([77fbabe](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/77fbabe538827ecb354fd5a1be514ecea528ce0b))
+* Shared VPC architecture deployment and make Autoscaling optional ([#10](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/10)) ([415b2fc](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/415b2fc74af8bd8c49076509501b36f4c9bfbbcd))
+
 ## 0.1.0 (2023-08-25)
 
 
