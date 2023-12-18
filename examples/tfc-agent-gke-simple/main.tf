@@ -71,7 +71,9 @@ resource "google_service_account" "tfc_agent_service_account" {
 
 # Create the infrastructure for the agent to run
 module "tfc_agent_gke" {
-  source                 = "../../modules/tfc-agent-gke"
+  source  = "GoogleCloudPlatform/tf-cloud-agents/google//modules/tfc-agent-gke"
+  version = "~> 0.1"
+
   create_network         = true
   network_name           = local.network_name
   subnet_name            = local.network_name
