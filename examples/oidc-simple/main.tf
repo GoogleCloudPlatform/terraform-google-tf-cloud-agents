@@ -91,8 +91,10 @@ resource "tfe_variable" "tfc_gcp_service_account_email" {
 
 # Use the OIDC module to provision the Workload identitly pool
 module "oidc" {
+  source      = "GoogleCloudPlatform/tf-cloud-agents/google//modules/tfc-oidc"
+  version     = "~> 0.1"
+
   project_id  = var.project_id
-  source      = "../../modules/tfc-oidc"
   pool_id     = "pool-${random_string.suffix.result}"
   provider_id = "terraform-provider-${random_string.suffix.result}"
   sa_mapping = {
