@@ -42,9 +42,9 @@ resource "random_string" "suffix" {
 
 # Create a new workspace which uses the agent to run Terraform
 resource "tfe_workspace" "tfc_workspace" {
-  name           = local.tfc_workspace
-  organization   = data.tfe_organization.tfc_org.name
-  project_id     = data.tfe_project.tfc_project.id
+  name         = local.tfc_workspace
+  organization = data.tfe_organization.tfc_org.name
+  project_id   = data.tfe_project.tfc_project.id
 }
 
 resource "tfe_workspace_settings" "tfc_workspace_settings" {

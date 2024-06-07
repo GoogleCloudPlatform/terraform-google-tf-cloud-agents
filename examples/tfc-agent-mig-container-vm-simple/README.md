@@ -38,7 +38,7 @@ It creates the Terraform Cloud agent pool, registers the agent to that pool and 
 | tfc\_agent\_pool\_name | Terraform Cloud agent pool name to be created | `string` | `"tfc-agent-mig-container-vm-simple-pool"` | no |
 | tfc\_agent\_pool\_token\_description | Terraform Cloud agent pool token description | `string` | `"tfc-agent-mig-container-vm-simple-pool-token"` | no |
 | tfc\_org\_name | Terraform Cloud org name where the agent pool will be created | `string` | n/a | yes |
-| tfc\_project\_name | Terraform Cloud project name to be created | `string` | `"GCP agents Container VM"` | no |
+| tfc\_project\_name | Terraform Cloud project name to be created | `string` | `"GCP agents"` | no |
 | tfc\_workspace\_name | Terraform Cloud workspace name to be created | `string` | `"tfc-agent-mig-container-vm-simple"` | no |
 
 ## Outputs
