@@ -19,8 +19,13 @@ data "tfe_organization" "tfc_org" {
   name = var.tfc_org_name
 }
 
+# Get the Terraform Cloud organization project, make sure it exists
+data "tfe_project" "tfc_project" {
+  name         = var.tfc_project_name
+  organization = data.tfe_organization.tfc_org.name
+}
+
 locals {
-  tfc_project   = "${var.tfc_project_name} ${random_string.suffix.result}"
   tfc_workspace = "${var.tfc_workspace_name}-${random_string.suffix.result}"
 }
 
@@ -32,17 +37,11 @@ resource "random_string" "suffix" {
   upper   = false
 }
 
-# Create a new project in Terraform Cloud
-resource "tfe_project" "tfc_project" {
-  name         = local.tfc_project
-  organization = data.tfe_organization.tfc_org.name
-}
-
 # Create a new workspace which uses the agent to run Terraform
 resource "tfe_workspace" "tfc_workspace" {
   name         = local.tfc_workspace
   organization = data.tfe_organization.tfc_org.name
-  project_id   = tfe_project.tfc_project.id
+  project_id   = data.tfe_project.tfc_project.id
 }
 
 # Create a new Service Account in Google Cloud

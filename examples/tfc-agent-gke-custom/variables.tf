@@ -26,8 +26,8 @@ variable "tfc_org_name" {
 
 variable "tfc_project_name" {
   type        = string
-  description = "Terraform Cloud project name to be created"
-  default     = "GCP agents GKE custom"
+  description = "Terraform Cloud project to use"
+  default     = "GCP agents"
 }
 
 variable "tfc_workspace_name" {
