@@ -20,7 +20,7 @@ terraform {
 
     google = {
       source  = "hashicorp/google"
-      version = ">= 4.3.0, < 5.35"
+      version = ">= 4.3.0, < 6.0.0"
     }
 
     kubernetes = {
