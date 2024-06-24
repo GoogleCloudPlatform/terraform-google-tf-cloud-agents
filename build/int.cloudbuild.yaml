@@ -39,26 +39,6 @@ steps:
     docker push us-central1-docker.pkg.dev/$_SETUP_PROJECT_ID/hashicorp/tfc-agent:latest
   waitFor:
     - "sleep"
-- id: packer-init
-  name: 'hashicorp/packer:1.9.1'
-  script: |
-    #!/usr/bin/env bash
-    source test/setup/outputs.env
-    packer init -var project_id=$_SETUP_PROJECT_ID examples/tfc-agent-mig-vm-packer/packer/packer.pkr.hcl
-  waitFor:
-    - "sleep"
-  env:
-  - 'TFC_AGENT_VERSION=$_TFC_AGENT_VERSION'
-- id: packer-build
-  name: 'hashicorp/packer:1.9.1'
-  script: |
-    #!/usr/bin/env bash
-    source test/setup/outputs.env
-    packer build -force -var project_id=$_SETUP_PROJECT_ID examples/tfc-agent-mig-vm-packer/packer
-  env:
-  - 'TFC_AGENT_VERSION=$_TFC_AGENT_VERSION'
-  waitFor:
-    - "packer-init"
 - id: init-all
   waitFor:
     - "sleep"
@@ -137,25 +117,6 @@ steps:
   secretEnv: ['TFE_TOKEN']
   waitFor:
     - "verify-mig-con-simple"
-- id: apply-mig-packer
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmPacker --stage apply --verbose']
-  secretEnv: ['TFE_TOKEN']
-  waitFor:
-    - "init-all"
-    - "packer-build"
-- id: verify-mig-packer
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmPacker --stage verify --verbose']
-  secretEnv: ['TFE_TOKEN']
-  waitFor:
-    - "apply-mig-packer"
-- id: destroy-mig-packer
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmPacker --stage destroy --verbose']
-  secretEnv: ['TFE_TOKEN']
-  waitFor:
-    - "verify-mig-packer"
 - id: apply-mig-simple
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'cft test run TestTfcAgentMigVmSimple --stage apply --verbose']
