@@ -89,6 +89,7 @@ module "tfc_agent_cluster" {
   remove_default_node_pool = true
   regional                 = false
   gce_pd_csi_driver        = true
+  deletion_protection      = false
   node_pools = [
     {
       name         = "tfc-agent-pool"
