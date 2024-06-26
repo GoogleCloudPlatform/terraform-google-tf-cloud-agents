@@ -8,6 +8,13 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.1.3](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/compare/v0.1.2...v0.1.3) (2024-06-26)
+
+
+### Bug Fixes
+
+* Update deletion protection for k8s ([#31](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/31)) ([16df0aa](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/16df0aaa5030dea593f76a7b68039b164bab16e7))
+
 ## [0.1.2](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/compare/v0.1.1...v0.1.2) (2024-06-25)
 
 
