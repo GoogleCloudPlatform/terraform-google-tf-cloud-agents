@@ -73,7 +73,7 @@ resource "google_service_account" "tfc_agent_service_account" {
 
 module "tfc_agent_cluster" {
   source                   = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster/"
-  version                  = "~> 24.0"
+  version                  = "~> 31.0"
   project_id               = var.project_id
   region                   = var.region
   zones                    = var.zones
@@ -89,6 +89,7 @@ module "tfc_agent_cluster" {
   remove_default_node_pool = true
   regional                 = false
   gce_pd_csi_driver        = true
+  deletion_protection      = false
   node_pools = [
     {
       name         = "tfc-agent-pool"
