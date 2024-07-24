@@ -127,7 +127,7 @@ resource "google_secret_manager_secret_iam_member" "tfc_agent_secret_member" {
 
 module "mig_template" {
   source             = "terraform-google-modules/vm/google//modules/instance_template"
-  version            = "~> 7.0"
+  version            = "~> 11.0"
   project_id         = var.project_id
   machine_type       = var.machine_type
   network            = local.network_name
@@ -154,6 +154,8 @@ module "mig_template" {
   tags = [
     local.instance_name
   ]
+  access_config      = var.access_config
+  ipv6_access_config = var.ipv6_access_config
 
   depends_on = [
     google_compute_network.tfc_agent_network,
@@ -167,9 +169,8 @@ module "mig_template" {
 
 module "mig" {
   source             = "terraform-google-modules/vm/google//modules/mig"
-  version            = "~> 7.0"
+  version            = "~> 11.0"
   project_id         = var.project_id
-  subnetwork_project = var.project_id
   region             = var.region
   hostname           = local.instance_name
   instance_template  = module.mig_template.self_link
