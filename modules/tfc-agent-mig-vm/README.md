@@ -24,10 +24,12 @@ This example shows how to deploy a MIG self hosted Terraform Cloud agent bootstr
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| access\_config | Access configurations, i.e. IPs via which the VM instance can be accessed via the Internet. | <pre>list(object({<br>    nat_ip       = string<br>    network_tier = string<br>  }))</pre> | `[]` | no |
 | cooldown\_period | The number of seconds that the autoscaler should wait before it<br>starts collecting information from a new instance | `number` | `60` | no |
 | create\_network | When set to true, VPC, router and NAT will be auto created | `bool` | `true` | no |
 | create\_service\_account | Set to true to create a new service account, false to use an existing one | `bool` | `true` | no |
 | custom\_metadata | User provided custom metadata | `map(any)` | `{}` | no |
+| ipv6\_access\_config | IPv6 access configurations. Currently a max of 1 IPv6 access configuration is supported. If not specified, the instance will have no external IPv6 Internet access. | <pre>list(object({<br>    network_tier = string<br>  }))</pre> | `[]` | no |
 | machine\_type | The GCP machine type to deploy | `string` | `"n1-standard-1"` | no |
 | max\_replicas | Maximum number of Terraform agent instances | `number` | `10` | no |
 | min\_replicas | Minimum number of Terraform agent instances | `number` | `1` | no |
