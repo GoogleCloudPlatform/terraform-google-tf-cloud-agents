@@ -168,12 +168,12 @@ module "mig_template" {
  *****************************************/
 
 module "mig" {
-  source             = "terraform-google-modules/vm/google//modules/mig"
-  version            = "~> 11.0"
-  project_id         = var.project_id
-  region             = var.region
-  hostname           = local.instance_name
-  instance_template  = module.mig_template.self_link
+  source            = "terraform-google-modules/vm/google//modules/mig"
+  version           = "~> 11.0"
+  project_id        = var.project_id
+  region            = var.region
+  hostname          = local.instance_name
+  instance_template = module.mig_template.self_link
 
   /* autoscaler */
   autoscaling_enabled = true
