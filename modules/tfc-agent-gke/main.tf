@@ -45,15 +45,14 @@ resource "google_compute_subnetwork" "tfc_agent_subnetwork" {
   ip_cidr_range = var.subnet_ip
   region        = var.region
   network       = google_compute_network.tfc_agent_network[0].name
-  secondary_ip_range = [
-    {
-      range_name    = var.ip_range_pods_name
-      ip_cidr_range = var.ip_range_pods_cidr
-    },
-    { range_name    = var.ip_range_services_name
-      ip_cidr_range = var.ip_range_services_cider
-    }
-  ]
+  secondary_ip_range {
+    range_name    = var.ip_range_pods_name
+    ip_cidr_range = var.ip_range_pods_cidr
+  }
+  secondary_ip_range {
+    range_name    = var.ip_range_services_name
+    ip_cidr_range = var.ip_range_services_cider
+  }
 }
 
 /*****************************************
@@ -73,7 +72,7 @@ resource "google_service_account" "tfc_agent_service_account" {
 
 module "tfc_agent_cluster" {
   source                   = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster/"
-  version                  = "~> 32.0"
+  version                  = "~> 33.0"
   project_id               = var.project_id
   region                   = var.region
   zones                    = var.zones
