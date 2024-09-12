@@ -49,7 +49,7 @@ resource "google_compute_subnetwork" "tfc_agent_subnetwork" {
     range_name    = var.ip_range_pods_name
     ip_cidr_range = var.ip_range_pods_cidr
   }
-  secondary_ip_range { 
+  secondary_ip_range {
     range_name    = var.ip_range_services_name
     ip_cidr_range = var.ip_range_services_cider
   }
