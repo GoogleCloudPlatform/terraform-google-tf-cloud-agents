@@ -15,13 +15,13 @@
  */
 
 terraform {
+  required_version = ">= 1.3"
   required_providers {
     google = {
       source  = "hashicorp/google"
       version = ">= 3.53, < 7.0.0"
     }
   }
-  required_version = ">= 0.13"
 
   provider_meta "google" {
     module_name = "blueprints/terraform/terraform-google-tf-cloud-agents:tfc-oidc/v0.1.2"
