@@ -74,7 +74,7 @@ resource "google_service_account" "tfc_agent_service_account" {
 
 module "tfc_agent_cluster" {
   source                   = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster/"
-  version                  = "~> 32.0"
+  version                  = "~> 34.0"
   project_id               = var.project_id
   region                   = var.region
   zones                    = var.zones
