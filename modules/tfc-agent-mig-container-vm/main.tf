@@ -103,7 +103,8 @@ resource "google_project_iam_member" "gce" {
 
 module "gce_container" {
   source  = "terraform-google-modules/container-vm/google"
-  version = "~> 3.0"
+  version = "~> 3.2"
+
   container = {
     image = var.image
     env = [
@@ -155,8 +156,9 @@ module "gce_container" {
 }
 
 module "mig_template" {
-  source             = "terraform-google-modules/vm/google//modules/instance_template"
-  version            = "~> 7.0"
+  source  = "terraform-google-modules/vm/google//modules/instance_template"
+  version = "~> 12.0"
+
   region             = var.region
   project_id         = var.project_id
   network            = local.network_name
@@ -193,14 +195,14 @@ module "mig_template" {
  *****************************************/
 
 module "mig" {
-  source             = "terraform-google-modules/vm/google//modules/mig"
-  version            = "~> 7.0"
-  region             = var.region
-  project_id         = var.project_id
-  subnetwork_project = var.project_id
-  target_size        = var.target_size
-  hostname           = local.instance_name
-  instance_template  = module.mig_template.self_link
+  source  = "terraform-google-modules/vm/google//modules/mig"
+  version = "~> 12.0"
+
+  region            = var.region
+  project_id        = var.project_id
+  target_size       = var.target_size
+  hostname          = local.instance_name
+  instance_template = module.mig_template.self_link
 
   /* autoscaler */
   autoscaling_enabled = var.autoscaling_enabled
