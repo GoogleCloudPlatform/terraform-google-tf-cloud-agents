@@ -8,6 +8,27 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.2.0](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/compare/v0.1.2...v0.2.0) (2024-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** Update Terraform terraform-google-modules/kubernetes-engine/google to v34 ([#49](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/49))
+* **deps:** Update Terraform terraform-google-modules/kubernetes-engine/google to v32 ([#39](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/39))
+
+### Features
+
+* **deps:** Update Terraform Google Provider to v6 (major) ([#41](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/41)) ([3cbfbab](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/3cbfbab25a948440d08e358b5db82f46b515de7c))
+
+
+### Bug Fixes
+
+* **deps:** Update Terraform terraform-google-modules/kubernetes-engine/google to v32 ([#39](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/39)) ([d0938ec](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/d0938ecca7d3e6b58e58bf5e104cf0adba7905d9))
+* **deps:** Update Terraform terraform-google-modules/kubernetes-engine/google to v34 ([#49](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/49)) ([8ec11ba](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/8ec11ba68f6c9dd14461658b0f821fc71b275c90))
+* Update deletion protection for k8s ([#31](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/31)) ([16df0aa](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/16df0aaa5030dea593f76a7b68039b164bab16e7))
+* update project-factory module and tf required version ([#51](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/51)) ([778b8d2](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/778b8d22529a4635a725b32d2404c0c0bb3fbacd))
+* upgrade vm modules ([#53](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/issues/53)) ([eb965ec](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/commit/eb965eca3a1376ea0921a3cefb483b7a1737f32d))
+
 ## [0.1.2](https://github.com/GoogleCloudPlatform/terraform-google-tf-cloud-agents/compare/v0.1.1...v0.1.2) (2024-06-25)
 
 

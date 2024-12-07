@@ -24,6 +24,6 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-tf-cloud-agents:tfc-oidc/v0.1.2"
+    module_name = "blueprints/terraform/terraform-google-tf-cloud-agents:tfc-oidc/v0.2.0"
   }
 }
