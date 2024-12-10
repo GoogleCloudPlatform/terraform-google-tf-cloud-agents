@@ -2,7 +2,7 @@ module github.com/terraform-google-modules/tf-cloud-agents/test/integration
 
 go 1.22.7
 
-toolchain go1.22.10
+toolchain go1.23.4
 
 require (
 	github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test v0.17.1
