@@ -72,7 +72,7 @@ resource "google_service_account" "tfc_agent_service_account" {
 # Create the infrastructure for the agent to run
 module "tfc_agent_mig" {
   source  = "GoogleCloudPlatform/tf-cloud-agents/google//modules/tfc-agent-mig-vm"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   project_id             = var.project_id
   create_network         = true
