@@ -91,7 +91,7 @@ resource "tfe_variable" "tfc_gcp_service_account_email" {
 # Use the OIDC module to provision the Workload identitly pool
 module "oidc" {
   source  = "GoogleCloudPlatform/tf-cloud-agents/google//modules/tfc-oidc"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   project_id  = var.project_id
   pool_id     = "pool-${random_string.suffix.result}"

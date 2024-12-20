@@ -63,7 +63,7 @@ resource "tfe_agent_token" "tfc_agent_token" {
 
 module "tfc_agent_mig" {
   source  = "GoogleCloudPlatform/tf-cloud-agents/google//modules/tfc-agent-mig-container-vm"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   create_network  = true
   network_name    = local.network_name
