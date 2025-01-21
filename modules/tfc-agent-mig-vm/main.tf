@@ -155,6 +155,8 @@ module "mig_template" {
   tags = [
     local.instance_name
   ]
+  access_config      = var.access_config
+  ipv6_access_config = var.ipv6_access_config
 
   depends_on = [
     google_compute_network.tfc_agent_network,
