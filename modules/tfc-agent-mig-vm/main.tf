@@ -127,7 +127,7 @@ resource "google_secret_manager_secret_iam_member" "tfc_agent_secret_member" {
 
 module "mig_template" {
   source  = "terraform-google-modules/vm/google//modules/instance_template"
-  version = "~> 12.0"
+  version = "~> 13.0"
 
   project_id         = var.project_id
   machine_type       = var.machine_type
@@ -168,7 +168,7 @@ module "mig_template" {
 
 module "mig" {
   source  = "terraform-google-modules/vm/google//modules/mig"
-  version = "~> 12.0"
+  version = "~> 13.0"
 
   project_id        = var.project_id
   region            = var.region
